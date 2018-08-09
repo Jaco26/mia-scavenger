@@ -1,6 +1,14 @@
 <template>
   <div >
-   {{msg}}
+    <form>
+      <label>Name</label>
+      <input type="text" v-model="user.userName"/>
+      <label>School</label>
+      <input type="text" v-model="user.userSchool"/>
+      <label>Grade</label>
+      <input type="text" v-model="user.userGrade"/>
+    </form>
+    <button><router-link to="/">Submit</router-link></button>
   </div>
 </template>
 
@@ -9,8 +17,17 @@ export default {
   name: 'Register',
   data () {
     return {
-      msg: 'register your user'
+      user: {
+        userName: '',
+        userSchool:'',
+        userGrade: '',
+      },
     }
+  },
+  methods: {
+    submitUser() {
+      console.log('button click');
+    },
   }
 }
 </script>
