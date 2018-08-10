@@ -8,11 +8,12 @@
       <label>Grade</label>
       <input type="text" v-model="user.userGrade"/>
     </form>
-    <button><router-link to="/">Submit</router-link></button>
+    <button @click="submitUser">Submit</button>
   </div>
 </template>
 
 <script>
+import {bus} from '../main';
 export default {
   name: 'Register',
   data () {
@@ -26,7 +27,12 @@ export default {
   },
   methods: {
     submitUser() {
-      console.log('button click');
+      bus.$emit('sendUser', {
+        userName: this.user.userName,
+        userSchool: this.user.userSchool,
+        userGrade: this.user.userGrade, 
+        });
+      this.$router.push({name: 'HomePage'}); 
     },
   }
 }
