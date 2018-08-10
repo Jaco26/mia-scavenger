@@ -1,18 +1,26 @@
 <template>
   <div class="hello">
+    <navbar></navbar>
     <h1>Hello {{userName}}</h1>
-    <h2>Grade {{userGrade}}</h2>
+    <displayed-art></displayed-art>
+    <button>Plan a Trip</button>
+    <button>Past Trips</button>
+    <button>Pre-curated Trips</button>
   </div>
 </template>
 
 <script>
 import {bus} from '../main';
+import DisplayedArt from './DisplayedArt';
+import Navbar from './Navbar';
 export default {
   name: 'HomePage',
-  components: {},
+  components: {
+    DisplayedArt,
+    Navbar,
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       userName: '',
       userGrade: '',
       userSchool: '',
@@ -41,7 +49,15 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+button {
+  background-color: #231f20;
+  padding: 15px;
+  width: 225px;
+  margin: 10px auto;
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 7px;
+  color: #fff;
 }
 </style>
