@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     search() {
-      this.$miapi.get('collections')
+      this.$api.get('/test')
         .then(response => {
           console.log(response);
           
