@@ -4,6 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+// Import custom axios plugin
+import axiosPlugin from './axios-plugin';
+
+// Make custom axios plugin available in .vue components
+Vue.use(axiosPlugin);
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
