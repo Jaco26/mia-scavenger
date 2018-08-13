@@ -1,7 +1,9 @@
 <template>
   <div>
-    <input type="text" placeholder="Search for art" v-model="searchPhrase">
-    <button @click="search">Get</button>
+    <form @submit.prevent="search">
+       <input type="text" placeholder="Search for art" v-model="searchPhrase">
+       <button type="submit">Get</button>
+    </form>
   </div>
 </template>
 
@@ -14,11 +16,19 @@ export default {
   },
   methods: {
     search() {
-      this.$api.get('/test')
+      if (this.searchPhrase) {
+        this.$api.get(`/search/${this.searchPhrase}`)
         .then(response => {
           console.log(response);
           
         })
+        .catch(err => {
+          console.log(err)
+        });
+      } else {
+        alert("You haven't typed any search phrase")
+      }
+      
     }
   }
 }

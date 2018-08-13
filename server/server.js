@@ -4,11 +4,11 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-const port = process.env.PORT || 8081;
+const routes = require('./routes');
 
-app.get('/api/test', (req, res) => {
-  res.send({hi: 'Hello'});
-})
+app.use('/api/', routes);
+
+const port = process.env.PORT || 8081;
 
 app.listen(port, () => {
   console.log('Server listening on port:', port);
