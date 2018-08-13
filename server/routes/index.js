@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const miapi = require('../modules/miapi');
 
+
 ///////////////////////////////////////////////
 /////////    MIA API Searches    //////////////
 ///////////////////////////////////////////////
@@ -21,6 +22,17 @@ router.get('/search/:query', async (req, res) => {
   } catch (err) {
     res.sendStatus(500);
     throw new Error('********* Error in /routes/search/:query', err)
+  }
+});
+
+router.get('/image/:id/:size', async (req, res) => {
+  try {
+    const { id, size } = req.params;
+    const result = await miapi.getImage(id, size);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    throw new Error('********* Error in /routes/image/:id/:size', err)
   }
 });
 
