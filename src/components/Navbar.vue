@@ -9,10 +9,11 @@
     </div>
 
     <ul v-if="showMenu" class="navbar">
-        <li><a href="#">Is A</a></li>
-        <li><a href="#">Test</a></li>
-        <li><a href="#">This</a></li>
+        <li><a href="#">Plan A Trip</a></li>
+        <li><a href="#">Previous Trips</a></li>
+        <li><a href="#">Pre-Curated Trips</a></li>
     </ul>
+
   </div>
 </template>
 
@@ -37,22 +38,29 @@ export default {
 #navbar-div{
     position: relative;
 }
+
 #navbar-div:after {
   display: block;
   height: 2px;
   content: " ";
-  width: 70%;
+  width: 75%;
   background-color: rgba(35, 31, 32, 0.85);
-  margin: 30px auto 75px;
+  margin: 30px auto 55px;
 }
+
 ul {
-  text-align: center;
+  text-align: right;
 }
+
 li {
-  display: inline-block;
+  list-style-type: none;
   font-size: 1.3em;
-  margin: 0 30px;
+  margin: 15px auto;
+  border-bottom:1px solid rgba(35, 31, 32, 0.85);
+  padding:5px;
+  width: 70%;
 }
+
 a {
   text-decoration: none;
   color: rgba(35, 31, 32, 0.85);
@@ -67,9 +75,17 @@ a {
 }
 .hamburger-line {
     width: 30px;
-    height: 3px;
+    height: 2px;
     background-color: black;
     margin: 8px 0;
+}
+
+@media (max-width: 660px) {
+    #hamburger-icon {
+        position: static;
+        display: inline-block;
+        margin: 0 auto;
+    }
 }
 
 </style>

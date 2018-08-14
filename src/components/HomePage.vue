@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <navbar></navbar>
-    <h1>Hello {{userName}}</h1>
-    <displayed-art></displayed-art>
+    <img src="./../assets/logo.png" alt="user" id="user-photo">
+    <h1>Hello {{user.userName}}</h1>
     <button>Plan a Trip</button>
     <button>Past Trips</button>
     <button>Pre-curated Trips</button>
@@ -10,13 +10,15 @@
 </template>
 
 <script>
-import {bus} from '../main';
-import DisplayedArt from './DisplayedArt';
 import Navbar from './Navbar';
+import {mapState} from 'vuex';
+
 export default {
   name: 'HomePage',
+  computed: {
+    ...mapState(['user'])
+  },
   components: {
-    DisplayedArt,
     Navbar,
   },
   data () {
@@ -26,13 +28,6 @@ export default {
       userSchool: '',
     }
   },
-  created() {
-    bus.$on('sendUser', (data) => {
-      this.userName = data.userName;
-      this.userGrade = data.userGrade;
-      this.userSchool = data.userSchool;
-    });
-  }
 }
 </script>
 
@@ -59,5 +54,12 @@ button {
   font-weight: 600;
   border-radius: 7px;
   color: #fff;
+  cursor: pointer;
+}
+#user-photo{
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
 }
 </style>
