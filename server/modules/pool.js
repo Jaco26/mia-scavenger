@@ -21,7 +21,7 @@ if (process.env.DATABASE_URL) {
   config = {
     host: 'localhost',
     port: 5432,
-    database: 'propublica_congress',
+    database: 'mia_art',
     max: 10,
     idleTimeoutMillis: 30000,
   };

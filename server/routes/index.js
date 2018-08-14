@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const miapi = require('../modules/miapi');
-
+const pool = 
 
 ///////////////////////////////////////////////
 /////////    MIA API Searches    //////////////
@@ -35,5 +35,26 @@ router.get('/image/:id/:size', async (req, res) => {
     throw new Error('********* Error in /routes/image/:id/:size', err)
   }
 });
+
+
+////////////////////////////////////////////////////
+///////    CRUD USER DATA FROM/TO OUR DB    ///////
+//////////////////////////////////////////////////
+
+// Get playlists and art
+router.get('/user/playlists', (req, res) => {
+
+});
+
+router.get('/user/all-saved-items/', (req, res) => {
+
+});
+
+// Post new art and add to playlists
+router.post('/user/new-art/', (req, res) => {
+  
+});
+
+
 
 module.exports = router;
