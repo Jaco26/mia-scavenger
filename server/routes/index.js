@@ -17,7 +17,7 @@ router.get('/id/:id', async (req, res) => {
 
 router.get('/search/:query', async (req, res) => {
   try {    
-    const result = await miapi.searchForArt(req.params.query);
+    const result = await miapi.searchForArt(req.params.query);            
     res.send(result);
   } catch (err) {
     res.sendStatus(500);

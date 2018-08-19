@@ -1,7 +1,14 @@
 <template>
   <div>
-    <AppSearchForm />
-    <AppSearchResults />
+
+    <AppSearchForm
+      @search="search"
+    />
+
+    <AppSearchResults 
+      :results="results"
+    />
+    
   </div>
 </template>
 
@@ -12,8 +19,28 @@ export default {
   components: {
     AppSearchForm,
     AppSearchResults
-  }
-
+  },
+  data() {
+    return {
+      searchResults: [],
+      numOfItems: 10,
+      error: ''
+    }
+  },
+  computed: {
+    results() {
+      return this.searchResults.slice(0, this.numOfItems);
+    },
+  },
+  methods: { 
+    search(searchPhrase) {
+      this.$api.get(`/search/${searchPhrase}`)
+        .then(response => {
+          this.searchResults = response.data
+        })
+        .catch(err => this.error = err);
+    },
+  },
 }
 </script>
 
