@@ -1,6 +1,8 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
+const history = require('connect-history-api-fallback');
 
+app.use(history());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
