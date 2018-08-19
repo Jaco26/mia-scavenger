@@ -1,31 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// vuex sub-modules
+import user from './user';
+import playlists from './art-playlists';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    state: {
-        user: {
-            userName: '',
-            userSchool: '',
-            userGrade: '',
-        }
+    modules: {
+        user,
+        playlists,
     },
-    mutations: {
-        setUser(state, payload) {
-            state.user = {
-                userName: payload.userName, 
-                userGrade: payload.userGrade,
-                userSchool: payload.userSchool
-            };
-        }
-    },
-    actions: {
-
-    },
-    getters: {
-
-    },
-
-
 });
