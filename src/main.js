@@ -7,6 +7,8 @@ import { store } from './store/store';
 
 // Import 3rd party libraries
 import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 // Use 3rd party libraries
 Vue.use(BootstrapVue);

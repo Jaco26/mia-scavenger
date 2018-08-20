@@ -1,29 +1,28 @@
 <template>
   <div>
-    <table>
-      <thead>
-        <th>Title</th>
-        <th>Room</th>
-        <th>Image</th>
-        <th>Audio</th>
-      </thead>
-      <tbody v-if="results[0]">
-        <tr v-for="result in results" :key="result.id">
-          <td> {{result.title}} </td>
-          <td>
-            {{result.room}}
-          </td>
-          <td> 
-            <img :src="result.imgUrl" alt="Art Pic ;)"> 
-          </td>
-          <td> 
-            <audio controls v-for="item in result.audioStops" :key="item._id" >
-              <source :src="item.link" type="audio/mp3">
-            </audio> 
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <b-container>
+      <template v-for="item in displayResults">
+        <b-row :key="item.id">
+          <b-col>
+            <b-card>
+              <b-media>
+                <b-img slot="aside" :src="item.imgUrl" alt="placeholder" />
+                <b-media-body>
+                  <h5> {{item.title}} </h5>
+                  <p> {{item.description}} </p>
+                  <div v-for="stop in item.audioStops" :key="stop._id" >
+                    <audio controls>
+                      <source v-if="stop.link" :src="stop.link">
+                    </audio>
+                  </div>
+                  <b-button @click="save(item.id)"> + Playlist </b-button>
+                </b-media-body>
+              </b-media>
+            </b-card>
+          </b-col>
+        </b-row>
+      </template>
+    </b-container>
   </div>
 </template>
 
@@ -32,6 +31,26 @@ export default {
   props: {
     results: Array,
   },
+  computed: {
+    displayResults() {
+      if (this.results) {
+        return this.results.map(item => ({
+          id: item.id,
+          title: item.title,
+          description: item.description,
+          room: item.room,
+          imgUrl: item.imgUrl,
+          audioStops: item.audioStops
+        }));
+      }
+    }
+  },
+  methods: {
+    save(id) {
+      console.log(id);
+      
+    }
+  }
   
 }
 </script>

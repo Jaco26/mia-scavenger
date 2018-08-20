@@ -15,6 +15,7 @@
 <script>
 import AppSearchForm from './SearchForm'
 import AppSearchResults from './SearchResults'
+import axios from 'axios'
 export default {
   components: {
     AppSearchForm,
@@ -34,7 +35,7 @@ export default {
   },
   methods: { 
     search(searchPhrase) {
-      this.$api.get(`/search/${searchPhrase}`)
+      axios.get(`/api/search/${searchPhrase}`)
         .then(response => {
           this.searchResults = response.data
         })
