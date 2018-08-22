@@ -15,7 +15,7 @@
                       <source v-if="stop.link" :src="stop.link">
                     </audio>
                   </div>
-                  <b-button @click="save(item.id)"> + Playlist </b-button>
+                  <b-button @click="save(item.id)"> Add To Playlist </b-button>
                 </b-media-body>
               </b-media>
             </b-card>

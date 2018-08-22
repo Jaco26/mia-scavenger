@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 const routes = require('./routes');
+const userRoutes = require('./routes/user-routes');
 
 app.use('/api/', routes);
 
