@@ -1,8 +1,5 @@
 import { user } from '@/services';
 
-console.log(user);
-
-
 export default {
   namespaced: true,
   state: {
@@ -10,8 +7,7 @@ export default {
   },
   mutations: {
     setArt(state, payload) {
-      console.log(payload);
-      
+      state.art = payload.data;
     },
   },
   actions: {

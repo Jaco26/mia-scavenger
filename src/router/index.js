@@ -22,11 +22,12 @@ export default new Router({
        component: HomePage
      },
     {
-      path: '/search',
+      path: '/test',
       component: SearchContainer,
+      redirect: 'test/search',
       children: [
         {
-          path: '',
+          path: 'search',
           name: 'search',
           component: Search
         },
