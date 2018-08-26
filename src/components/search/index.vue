@@ -1,25 +1,21 @@
 <template>
-  <div>
+  <b-container>
+    <AppNavBar />
 
-    <AppSearchForm
-      @search="search"
-    />
+    <router-view></router-view>
 
     <AppSearchResults 
       :results="results"
     />
     
-  </div>
+  </b-container>
 </template>
 
 <script>
-import AppSearchForm from './SearchForm'
-import AppSearchResults from './SearchResults'
-import axios from 'axios'
+import AppNavBar from './Nav'
 export default {
   components: {
-    AppSearchForm,
-    AppSearchResults
+    AppNavBar,
   },
   data() {
     return {

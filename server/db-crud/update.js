@@ -18,16 +18,16 @@ module.exports = {
       .catch(err => err);
   },
 
-  userPlaylist({ playlistId, playlistName, coverArtId }) {
+  userPlaylist({ playlist_name, cover_art_id, playlist_id }) {
     const sqlText = `UPDATE playlists SET playlist_name = $1, cover_art_id = $2 WHERE id = $3;`;
-    return pool.query(sqlText, [playlistName, coverArtId, playlistId])
+    return pool.query(sqlText, [playlist_name, cover_art_id, playlist_id])
       .then(response => 200)
       .catch(err => err);
   },
 
-  userPlaylistArt({ playlistId, artIds }) {
+  userPlaylistArt({ playlist_id, art_ids }) {
     const sqlText = `UPDATE playlists SET art_ids = $1 WHERE id = playlist_id = $2;`;
-    return pool.query(sqlText, [playlistId, artIds])
+    return pool.query(sqlText, [playlist_id, art_ids])
       .then(response => 200)
       .catch(err => err);
   }
