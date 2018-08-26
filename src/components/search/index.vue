@@ -1,13 +1,7 @@
 <template>
   <b-container>
     <AppNavBar />
-
     <router-view></router-view>
-
-    <AppSearchResults 
-      :results="results"
-    />
-    
   </b-container>
 </template>
 

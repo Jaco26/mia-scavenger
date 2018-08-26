@@ -14,7 +14,7 @@ export const search = {
 
 export const user = {
   // GET
-  getUserArt({ userId }) {
+  getUserArt({ user_id }) {
     return api.get(`/user/art/${userId}`)
       .then(response => response)
       .catch(err => err);

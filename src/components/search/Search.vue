@@ -2,7 +2,7 @@
   <div>
     <b-row align-h="center">
       <b-col class="m-2" cols="6">
-        <b-form @submit.prevent="$emit('search', searchPhrase)">
+        <b-form @submit.prevent="searchArt(searchPhrase)">
           <b-form-row>
             <b-col cols="10">
               <b-form-input type="text" placeholder="Search for art" v-model="searchPhrase" />
@@ -18,11 +18,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
-  data() {
-    return {
-      searchPhrase: ''
-    }
+  methods: {
+    ...mapActions('search', ['searchArt']),
   },
+  computed: {
+    searchPhrase: {
+      get() {
+        this.$store.state.search.searchPhrase;
+      },
+      set(val) {
+        this.$store.commit('search/setSearchPhrase', val);
+      },
+    }
+  }
 }
 </script>
