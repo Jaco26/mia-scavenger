@@ -28,13 +28,24 @@ const filterArtResponse = (response) => {
 }
 
 module.exports = {
-  async searchForArt(query) {
+  searchForArt(query) {
     return miaSearch.get(`/${query}`)
       .then(response => filterArtResponse(response))
       .catch(err => err);
   },
-  async getArtById(id) {
+  getArtById(id) {
     return miaSearch.get(`/id/${id}`)
+      .then(response => filterArtResponse(response))
+      .catch(err => err);
+  },
+  getArtByIds(ids) {
+    const idsString = ids.reduce((str, id, i, arr) => {
+      i === arr.length - 1
+        ? str += id
+        : str += `${id},`;
+      return str;
+    }, '');
+    return miaSearch.get(`/ids/${idsString}`)
       .then(response => filterArtResponse(response))
       .catch(err => err);
   },

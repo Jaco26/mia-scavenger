@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const { Create, Read, Update, Delete } = require('../db-crud');
 
+
+// CREATE CREATE CREATE
+
 router.post('/', async (req, res) => {
   try {
     const result = await Create.user(req.body);
@@ -37,10 +40,78 @@ router.post('/playlist', async (req, res) => {
   }
 });
 
+
+
+// READ READ READ
+
+router.get('/:username/:password', async (req, res) => {
+  try {
+    const result = await Read.user(req.params);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+router.get('/art/:userId', async (req, res) => {
+  try {
+    const result = await Read.userArt(req.params);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+router.get('/playlists/:userId', async (req, res) => {
+  try {
+    const result = await Read.userPlaylists(req.params);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+router.get('/playlist/:artIds', async (req, res) => {
+  try {
+    const result = await Read.userPlaylistArt(req.params);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+
+
+// UPDATE UPDATE UPDATE
+
+router.patch('/', async (req, res) => {
+  try {
+    await Update.user(req.body);
+    res.sendStatus(200);
+  } catch (err) {
+     res.sendStatus(500);
+     console.log(err);
+  }
+});
+
+router.patch('/playlist', async (req, res) => {
+  try {
+    await Update.userPlaylist(req.body)
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
 router.patch('/playlist/art', async (req, res) => {
   try {
     await Update.userPlaylistArt(req.body);
-    res.sendStatus(201);
+    res.sendStatus(200);
   } catch (err) {
     res.sendStatus(500);
     console.error(err);
@@ -49,16 +120,36 @@ router.patch('/playlist/art', async (req, res) => {
 
 
 
+// DELETE DELETE DELETE
 
-router.get('/:userId', (req, res) => {
-  const sqlText = `SELECT * FROM users WHERE id = $1;`;
-  pool.query(sqlText, [req.params.userId])
-    .then(response => res.send(response.rows))
-    .catch(err => {
-      res.sendStatus(500);
-      console.log(err);
-    });
+router.delete('/:userId', async (req, res) => {
+  try {
+    await Delete.user(req.params);
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
 });
 
-router.get('/:playlistId')
+router.delete('/art/:userId/:artId', async (req, res) => {
+  try {
+    await Delete.userArt(req.params);
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
 
+router.delete('/playlist/:playlistId', async (req, res) => {
+  try {
+    await Delete.userPlaylist(req.params);
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+module.exports = router;
