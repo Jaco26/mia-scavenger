@@ -5,6 +5,8 @@ const miaSearch = axios.create({
 });
 
 const filterArtResponse = (response) => {
+  // console.log('RESPONSE ***********', response);
+  
   return response.data.hits.hits.reduce((accum, item, i) => {
     const x = item._source;
     accum.push({
@@ -45,6 +47,8 @@ module.exports = {
         : str += `${id},`;
       return str;
     }, '');
+    console.log('IDS STRING ******');
+    
     return miaSearch.get(`/ids/${idsString}`)
       .then(response => filterArtResponse(response))
       .catch(err => err);

@@ -13,7 +13,7 @@
                   <source v-if="stop.link" :src="stop.link">
                 </audio>
               </div>
-              <b-button @click="save(item.id)"> Add To Playlist </b-button>
+              <b-button @click="saveArt({user_id: 1, miapi_id: item.id})"> Save Art </b-button>
             </b-media-body>
           </b-media>
         </b-card>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   props: {
     results: Array,
@@ -43,9 +44,9 @@ export default {
   },
   methods: {
     save(id) {
-      console.log(id);
-      
-    }
+       
+    },
+    ...mapActions('art', ['saveArt']),
   }
   
 }

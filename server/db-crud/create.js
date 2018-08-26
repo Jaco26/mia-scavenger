@@ -22,9 +22,13 @@ module.exports = {
     return pool.query(`SELECT * FROM art WHERE user_id = $1 AND miapi_id = $2`, [user_id, miapi_id])
       .then(response => {
         if (response.rows[0]) { // already saved this art
+          console.log('YOU ALREADY SAVED THIS ART');
+          
           return 'You have already saved this art!';
         } else {
-          const sqlText = `INSET INTO art (user_id, miapi_id)
+          console.log('INSERTING ART****************');
+          
+          const sqlText = `INSERT INTO art (user_id, miapi_id)
             VALUES ($1, $2);`;
           return pool.query(sqlText, [user_id, miapi_id])
             .then(response => 200)

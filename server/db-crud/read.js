@@ -9,9 +9,9 @@ module.exports = {
       .catch(err => err);
   },
 
-  userArt({ userId }) {
+  userArt({ userId }) {    
     return pool.query(`SELECT * FROM art WHERE user_id = $1;`, [userId])
-      .then(async response => {
+      .then(async response => {        
         const artIds = response.rows.map(row => row.miapi_id);
         const miapiResults = await miapi.getArtByIds(artIds);
         return miapiResults.reduce((accum, result) => {
@@ -22,17 +22,25 @@ module.exports = {
           return accum;
         }, []);
       })
-      .catch(err => err);
+      .catch(err => {
+        throw new Error(err)
+      });
   },
 
   userPlaylists({ userId }) {
     return pool.query(`SELECT * FROM playlists WHERE user_id = $1;`, [userId])
       .then(response => response.rows)
-      .catch(err => err);
+      .catch(err => {
+        throw new Error(err)
+      });
   },
 
   userPlaylistArt({ artIds }) {
-    return miapi.getArtByIds(artIds);
-  }
+    try {
+      return miapi.getArtByIds(artIds);
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
 
 };

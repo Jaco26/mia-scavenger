@@ -44,17 +44,7 @@ router.post('/playlist', async (req, res) => {
 
 // READ READ READ
 
-router.get('/:username/:password', async (req, res) => {
-  try {
-    const result = await Read.user(req.params);
-    res.send(result);
-  } catch (err) {
-    res.sendStatus(500);
-    console.log(err);
-  }
-});
-
-router.get('/art/:userId', async (req, res) => {
+router.get('/art/:userId', async (req, res) => {  
   try {
     const result = await Read.userArt(req.params);
     res.send(result);
@@ -77,6 +67,16 @@ router.get('/playlists/:userId', async (req, res) => {
 router.get('/playlist/:artIds', async (req, res) => {
   try {
     const result = await Read.userPlaylistArt(req.params);
+    res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+router.get('/:username/:password', async (req, res) => {  
+  try {
+    const result = await Read.user(req.params);
     res.send(result);
   } catch (err) {
     res.sendStatus(500);

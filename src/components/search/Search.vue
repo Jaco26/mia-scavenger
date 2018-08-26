@@ -14,12 +14,21 @@
         </b-form>
       </b-col>
     </b-row>
+
+    <AppDisplayArt 
+      :results="searchResults"
+    />
+
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+import AppDisplayArt from './DisplayArt'
 export default {
+  components: {
+    AppDisplayArt
+  },
   methods: {
     ...mapActions('search', ['searchArt']),
   },
@@ -31,7 +40,8 @@ export default {
       set(val) {
         this.$store.commit('search/setSearchPhrase', val);
       },
-    }
+    },
+    ...mapState('search', ['searchResults']),
   }
 }
 </script>

@@ -8,7 +8,7 @@ export default {
   },
   mutations: {
     setSearchResults(state, payload) {
-      console.log(payload);
+      state.searchResults = payload;
     },
     setSearchPhrase(state, val) {
       state.searchPhrase = val;
