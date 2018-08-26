@@ -1,24 +1,54 @@
 const router = require('express').Router();
-const pool = require('../modules/pool');
+const { Create, Read, Update, Delete } = require('../db-crud');
 
-router.post('/new-user', (req, res) => {
-  const { username, password, school, grade } = req.body;
-
-  const sqlText = `INSERT INTO users (username, password, school, grade)
-    VALUES ($1, $2, $3, $4);`;
-
-  pool.query(sqlText, [username, password, school, grade])
-    .then(() => res.sendStatus(201))
-    .catch(err => {
-      res.sendStatus(500);
-      console.log(err);
-    });
+router.post('/', async (req, res) => {
+  try {
+    const result = await Create.user(req.body);
+    result === 200
+      ? res.sendStatus(200)
+      : res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.error(err);
+  }
 });
 
-router.post('/new-playist', (req, res) => {
+router.post('/art', async (req, res) => {
+  try {
+    const result = await Create.userArt(req.body);
+    result === 200
+      ? res.sendStatus(200)
+      : res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.error(err);
+  }
+});
 
-  const sqlText = `INSERT INTO playlists ()`
-})
+router.post('/playlist', async (req, res) => {
+  try {
+    const result = await Create.userPlaylist(req.body);
+    result === 200
+      ? res.sendStatus(200)
+      : res.send(result);
+  } catch (err) {
+    res.sendStatus(500);
+    console.error(err)
+  }
+});
+
+router.patch('/playlist/art', async (req, res) => {
+  try {
+    await Update.userPlaylistArt(req.body);
+    res.sendStatus(201);
+  } catch (err) {
+    res.sendStatus(500);
+    console.error(err);
+  }
+});
+
+
+
 
 router.get('/:userId', (req, res) => {
   const sqlText = `SELECT * FROM users WHERE id = $1;`;

@@ -2,21 +2,30 @@ CREATE TABLE users
 (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR,
-	role INT
+	user_role INT,
+	school VARCHAR,
+	grade INT
 );
-
 
 CREATE TABLE art
 (
 	id SERIAL PRIMARY KEY,
-	mia_id VARCHAR,
-	user_id INT references users
+	miapi_id VARCHAR,
+	user_id INT references users ON DELETE CASCADE
 );
 
-CREATE TABLE playlists 
+CREATE TABLE playlists
 (
 	id SERIAL PRIMARY KEY,
 	playlist_name VARCHAR,
-	art_id INT references art,
-	user_id INT references users
+	user_id INT references users ON DELETE CASCADE,
+	cover_art_id INT references art ON DELETE CASCADE
+);
+
+CREATE TABLE playlist_art
+(
+	id SERIAL PRIMARY KEY,
+	playlist_id INT references playlists ON DELETE CASCADE,
+	art_id INT references art ON DELETE CASCADE,
+	playlist_order INT
 );
