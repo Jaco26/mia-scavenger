@@ -11,16 +11,18 @@ module.exports = {
 
   userArt({ userId }) {    
     return pool.query(`SELECT * FROM art WHERE user_id = $1;`, [userId])
-      .then(async response => {        
-        const artIds = response.rows.map(row => row.miapi_id);
-        const miapiResults = await miapi.getArtByIds(artIds);
-        return miapiResults.reduce((accum, result) => {
-          accum.push({
-            miaResults: result,
-            dbResults: response.rows.filter(row => row.miapi_id == result.id)[0]
-          });
-          return accum;
-        }, []);
+      .then(async response => {  
+        if (response.rowCount > 0) {
+          const artIds = response.rows.map(row => row.miapi_id);
+          const miapiResults = await miapi.getArtByIds(artIds);
+          return miapiResults.reduce((accum, result) => {
+            accum.push({
+              miaResults: result,
+              dbResults: response.rows.filter(row => row.miapi_id == result.id)[0]
+            });
+            return accum;
+          }, []);
+        }      
       })
       .catch(err => {
         throw new Error(err)

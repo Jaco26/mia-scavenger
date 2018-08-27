@@ -13,7 +13,8 @@
                   <source v-if="stop.link" :src="stop.link">
                 </audio>
               </div>
-              <b-button @click="saveArt({user_id: 1, miapi_id: item.id})"> Save Art </b-button>
+              <b-button @click="saveArt({miapi_id: item.miapi_id})"> Save Art </b-button>
+              <b-button @click="deleteArt({artId: item.id})"> Delete </b-button>
             </b-media-body>
           </b-media>
         </b-card>
@@ -32,21 +33,22 @@ export default {
     displayResults() {
       if (this.results) {
         return this.results.map(item => ({
-          id: item.id,
-          title: item.title,
-          description: item.description,
-          room: item.room,
-          imgUrl: item.imgUrl,
-          audioStops: item.audioStops
+          id: item.dbResults ? item.dbResults.id: null,
+          miapi_id: item.miaResults.id,
+          title: item.miaResults.title,
+          description: item.miaResults.description,
+          room: item.miaResults.room,
+          imgUrl: item.miaResults.imgUrl,
+          audioStops: item.miaResults.audioStops
         }));
       }
     }
   },
   methods: {
-    save(id) {
-       
-    },
-    ...mapActions('art', ['saveArt']),
+    ...mapActions('art', [
+      'saveArt',
+      'deleteArt'
+    ]),
   }
   
 }

@@ -30,5 +30,5 @@ module.exports = {
     return pool.query(sqlText, [playlist_id, art_ids])
       .then(response => 200)
       .catch(err => err);
-  }
+  },
 }

@@ -8,7 +8,7 @@
               <b-form-input type="text" placeholder="Search for art" v-model="searchPhrase" />
             </b-col>
             <b-col cols="2">
-              <b-button size="md"  type="submit">Search</b-button>
+              <b-button size="md" type="submit">Search</b-button>
             </b-col>
           </b-form-row>
         </b-form>

@@ -4,11 +4,9 @@ const miaSearch = axios.create({
   baseURL: 'https://search.artsmia.org',
 });
 
-const filterArtResponse = (response) => {
-  // console.log('RESPONSE ***********', response);
-  
+const filterArtResponse = (response) => {  
   return response.data.hits.hits.reduce((accum, item, i) => {
-    const x = item._source;
+    const x = item._source;    
     accum.push({
       artist: x.artist,
       classification: x.classification,
@@ -23,6 +21,7 @@ const filterArtResponse = (response) => {
       text: x.text,
       title: x.title,
       audioStops: x['related:audio-stops'],
+      tags: x.tags,
       imgUrl: `https://api.artsmia.org/images/${x.id}/small.jpg`
     });
     return accum;
@@ -47,7 +46,7 @@ module.exports = {
         : str += `${id},`;
       return str;
     }, '');
-    console.log('IDS STRING ******');
+    console.log('IDS STRING ******', idsString);
     
     return miaSearch.get(`/ids/${idsString}`)
       .then(response => filterArtResponse(response))

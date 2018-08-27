@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppDisplayArt
-      :results="art.map(item => item.miaResults)"
+      :results="art"
     />
   </div>
 </template>

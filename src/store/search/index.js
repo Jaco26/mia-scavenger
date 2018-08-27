@@ -15,8 +15,8 @@ export default {
     }
   }, 
   actions: {
-    async searchArt({ commit }, query) {
-      commit('setSearchResults', await search.searchArt(query));
+    async searchArt({ commit, state }, query) {
+      commit('setSearchResults', await search.searchArt(state.searchPhrase));
     },
   },
 }

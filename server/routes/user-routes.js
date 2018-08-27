@@ -122,16 +122,6 @@ router.patch('/playlist/art', async (req, res) => {
 
 // DELETE DELETE DELETE
 
-router.delete('/:userId', async (req, res) => {
-  try {
-    await Delete.user(req.params);
-    res.sendStatus(200);
-  } catch (err) {
-    res.sendStatus(500);
-    console.log(err);
-  }
-});
-
 router.delete('/art/:userId/:artId', async (req, res) => {
   try {
     await Delete.userArt(req.params);
@@ -145,6 +135,16 @@ router.delete('/art/:userId/:artId', async (req, res) => {
 router.delete('/playlist/:playlistId', async (req, res) => {
   try {
     await Delete.userPlaylist(req.params);
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+    console.log(err);
+  }
+});
+
+router.delete('/:userId', async (req, res) => {
+  try {
+    await Delete.user(req.params);
     res.sendStatus(200);
   } catch (err) {
     res.sendStatus(500);

@@ -19,17 +19,19 @@ export default {
         console.log(err);
       }
     },
-    async saveArt({ dispatch }, { user_id, miapi_id }) {
+    async saveArt({ dispatch, rootState }, { miapi_id }) {
       try {
-        const response = await user.saveUserArt({ user_id, miapi_id });        
+        const user_id = rootState.user.user.id;
+        await user.saveUserArt({ user_id, miapi_id });        
         dispatch('getArt');
       } catch (err) {
         console.log(err);
       }
     },
-    async deleteArt({ dispatch }, { user_id, artId }) {
+    async deleteArt({ dispatch, rootState }, { artId }) {
       try {
-        await user.deleteArt({ user_id, artId });
+        const user_id = rootState.user.user.id;
+        await user.deleteUserArt({ user_id, artId });
         dispatch('getArt', { user_id });
       } catch (err) {
         console.log(err);
