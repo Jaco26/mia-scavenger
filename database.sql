@@ -16,7 +16,7 @@ CREATE TABLE art
 	user_id INT references users ON DELETE CASCADE
 );
 
-CREATE TABLE playlists
+CREATE TABLE playlists 
 (
 	id SERIAL PRIMARY KEY,
 	playlist_name VARCHAR,
@@ -24,3 +24,6 @@ CREATE TABLE playlists
 	cover_art_id INT references art ON DELETE CASCADE,
 	art_ids TEXT[]
 );
+
+INSERT INTO users (username, password, school, grade)
+VALUES ('Mx. Doe', '1', 'Art Junior High', 6);
