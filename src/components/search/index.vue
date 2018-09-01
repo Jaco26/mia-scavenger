@@ -1,19 +1,16 @@
 <template>
-  <div>
-    <AppSearchForm />
-    <AppSearchResults />
-  </div>
+  <b-container>
+    <AppNavBar />
+    <router-view></router-view>
+  </b-container>
 </template>
 
 <script>
-import AppSearchForm from './SearchForm'
-import AppSearchResults from './SearchResults'
+import AppNavBar from './Nav'
 export default {
   components: {
-    AppSearchForm,
-    AppSearchResults
-  }
-
+    AppNavBar,
+  },
 }
 </script>
 

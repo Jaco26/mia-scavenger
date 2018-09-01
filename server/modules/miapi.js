@@ -4,24 +4,52 @@ const miaSearch = axios.create({
   baseURL: 'https://search.artsmia.org',
 });
 
-const miaImage = axios.create({
-  baseURL: 'https://api.artsmia.org/images',
-})
+const filterArtResponse = (response) => {  
+  return response.data.hits.hits.reduce((accum, item, i) => {
+    const x = item._source;    
+    accum.push({
+      artist: x.artist,
+      classification: x.classification,
+      continent: x.continent,
+      dated: x.dated,
+      department: x.department,
+      description: x.description,
+      id: x.id,
+      medium: x.medium,
+      rights: x.rights,
+      room: x.room,
+      text: x.text,
+      title: x.title,
+      audioStops: x['related:audio-stops'],
+      tags: x.tags,
+      imgUrl: `https://api.artsmia.org/images/${x.id}/small.jpg`
+    });
+    return accum;
+  }, []);
+}
 
 module.exports = {
-  async searchForArt(query) {
+  searchForArt(query) {
     return miaSearch.get(`/${query}`)
-      .then(response => response.data)
+      .then(response => filterArtResponse(response))
       .catch(err => err);
   },
-  async getArtById(id) {
+  getArtById(id) {
     return miaSearch.get(`/id/${id}`)
-      .then(response => response.data)
+      .then(response => filterArtResponse(response))
       .catch(err => err);
   },
-  async getImage(id, size = 'small') {
-    return miaImage.get(`/${id}/${size}.jpg`)
-      .then(response => response.data)
+  getArtByIds(ids) {
+    const idsString = ids.reduce((str, id, i, arr) => {
+      i === arr.length - 1
+        ? str += id
+        : str += `${id},`;
+      return str;
+    }, '');
+    console.log('IDS STRING ******', idsString);
+    
+    return miaSearch.get(`/ids/${idsString}`)
+      .then(response => filterArtResponse(response))
       .catch(err => err);
-  }
+  },
 }
