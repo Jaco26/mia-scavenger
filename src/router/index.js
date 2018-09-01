@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import HomePage from '@/components/HomePage'
 import register from '@/components/register'
+import PlanTrip from '@/components/PlanTrip/PlanTrip';
 
 import SearchContainer from '@/components/search'
 import Search from '@/components/search/Search';
@@ -54,6 +55,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: register
+    },
+    {
+      path: '/plan',
+      name: 'PlanTrip',
+      component: PlanTrip
     },
   ]
 })
