@@ -1,30 +1,17 @@
 <template>
   <div>
-    <!-- <b-row align-h="center">
-      <b-col class="m-2" cols="6">
-        <b-form @submit.prevent="searchArt(searchPhrase)">
-          <b-form-row>
-            <b-col cols="10">
-              <b-form-input type="text" placeholder="Search for art" v-model="searchPhrase" />
-            </b-col>
-            <b-col cols="2">
-              <b-button size="md" type="submit">Search</b-button>
-            </b-col>
-          </b-form-row>
-          <b-form-row>
-            <b-col>
-              <b-form-checkbox-group
-                v-model="selectedFields"
-                buttons
-                :options="searchFields"
-              ></b-form-checkbox-group>
-            </b-col>
-          </b-form-row>
-        </b-form>
-      </b-col>
-    </b-row>
-
-    {{selectedFields}} -->
+    <v-form @submit.prevent="searchArt(searchPhrase)">
+      <v-layout justify-center>
+        <v-flex xs12 class="ma-2">
+            <v-text-field 
+              v-model="searchPhrase"
+              solo 
+              prepend-icon="search"
+            ></v-text-field>
+            <v-btn type="submit">Search</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-form>
 
     <AppDisplayArt 
       :results="searchResults"

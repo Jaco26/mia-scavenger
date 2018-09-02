@@ -4,12 +4,12 @@
       <v-flex v-for="item in displayResults" :key="item.miapi_id">
         <v-card>
           <v-card-title primary-title> {{item.title}} </v-card-title>
-          <v-card-media>
+          <v-responsive>
             <v-img :src="item.imgUrl" height="200"></v-img>
             <audio v-for="audioStop in item.audioStops" :key="audioStop._id" controls>
               <source v-if="audioStop.link" :src="audioStop.link">
             </audio>
-          </v-card-media>
+          </v-responsive>
           <v-card-actions>
             <v-btn flat outline>Save</v-btn>
             <v-btn flat outline color="red">Delete</v-btn>
