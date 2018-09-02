@@ -1,5 +1,5 @@
 <template>
-    <div b-container class="login h-100">
+    <!-- <div b-container class="login h-100">
         <div id="bg">
             <img src="https://source.unsplash.com/random">
         </div>
@@ -37,7 +37,36 @@
            </b-col>
         </b-row>
        
-    </div>
+    </div> -->
+    <v-container fill-height>
+        <div id="bg">
+            <img src="https://source.unsplash.com/random">
+        </div>
+        <v-layout align-center justify-center row fill-height>
+            <v-flex  xs12 md4>
+                <v-card class="login-card">
+                    <v-card-title primary-title>
+                        <div class="headline">Mia's Field Trip App</div>
+                    </v-card-title>
+                    <v-form v-model="valid">
+                        <v-text-field
+                        v-model="name"
+                        :rules="nameRules"
+                        :counter="10"
+                        label="Name"
+                        required
+                        ></v-text-field>
+                        <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail"
+                        required
+                        ></v-text-field>
+                    </v-form>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 

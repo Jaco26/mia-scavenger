@@ -1,4 +1,5 @@
 const app = require('express')();
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const history = require('connect-history-api-fallback');
 
