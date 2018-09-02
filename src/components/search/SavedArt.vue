@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppDisplayArt
-      :results="art"
+      :results="savedArt"
     />
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
     AppDisplayArt,
   },
   computed: {
-    ...mapState('art', ['art']),
+    ...mapState('art', ['savedArt']),
   }
 
 }

@@ -6,12 +6,13 @@ import router from './router';
 import { store } from './store/store';
 
 // Import 3rd party libraries
-import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'babel-polyfill'
 
 // Use 3rd party libraries
-Vue.use(BootstrapVue);
+Vue.use(Vuetify);
 
 Vue.config.productionTip = false
 
