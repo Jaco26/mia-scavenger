@@ -70,42 +70,27 @@ export default {
 </script>
 
 <style>
-#bg {
-  position: fixed; 
-  top: -50%; 
-  left: -50%; 
-  width: 200%; 
-  height: 200%;
-}
-#bg img {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  margin: auto; 
-  min-width: 50%;
-  min-height: 50%;
-}
-.login-card{
-    background-color: rgba(255, 255, 255, 0.836);
-}  
-.login{
+    #bg {
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    }
+    #bg img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+    }
+    .login-card{
+        background-color: rgba(255, 255, 255, 0.836);
+    }  
 
-   /* img login-background{
-       
-            background : url("https://source.unsplash.com/") no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        
-            overflow: hidden;
-            z-index: 100000;
-        
-
-    } */
-}
    #app{
         height: 100vh;
     }
