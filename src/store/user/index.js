@@ -5,9 +5,9 @@ export default {
   state: {
     user: {
       id: 1, // default userId, since we only have one in the database
-      username: '',
-      school: '',
-      grade: '',
+      username: 'Mx. Doe',
+      school: 'Art Junior High School',
+      grade: '7',
     },
     error: false,
     errorMsg: '',

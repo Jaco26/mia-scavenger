@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <b-row align-h="center">
+    <b-row align-h="center">
       <b-col class="m-2" cols="6">
         <b-form @submit.prevent="searchArt(searchPhrase)">
           <b-form-row>
@@ -24,7 +24,7 @@
       </b-col>
     </b-row>
 
-    {{selectedFields}} -->
+    {{selectedFields}}
 
     <AppDisplayArt 
       :results="searchResults"
@@ -73,7 +73,7 @@ export default {
   computed: {
     searchPhrase: {
       get() {
-        this.$store.state.search.searchPhrase;
+        return this.$store.state.search.searchPhrase;
       },
       set(val) {
         this.$store.commit('search/setSearchPhrase', val);

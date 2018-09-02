@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     planTrip() {
-      console.log('Button click');
       this.$router.push({name: 'PlanTrip'});
     },
   },
