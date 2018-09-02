@@ -11,9 +11,21 @@
               <b-button size="md" type="submit">Search</b-button>
             </b-col>
           </b-form-row>
+          <b-form-row>
+            <b-col>
+              <b-form-checkbox-group
+                v-model="selectedFields"
+                buttons
+                :options="searchFields"
+
+              ></b-form-checkbox-group>
+            </b-col>
+          </b-form-row>
         </b-form>
       </b-col>
     </b-row>
+
+    {{selectedFields}}
 
     <AppDisplayArt 
       :results="searchResults"
@@ -26,6 +38,33 @@
 import { mapActions, mapState } from 'vuex';
 import AppDisplayArt from './DisplayArt'
 export default {
+  data() {
+    return {
+      searchFields: [
+        {
+          text: 'All',
+          value: '_all',
+        },
+        {
+          text: 'Description',
+          value: 'description',
+        },
+        {
+          text: 'Text',
+          value: 'text'
+        },
+        {
+          text: 'Artist',
+          value: 'artist'
+        },
+        {
+          text: 'Title',
+          value: 'title'
+        },
+      ],
+      selectedFields: [],
+    }
+  },
   components: {
     AppDisplayArt
   },
