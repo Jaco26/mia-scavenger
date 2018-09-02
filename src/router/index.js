@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
 import register from '@/components/register'
 import PlanTrip from '@/components/PlanTrip/PlanTrip';
-
+import Login from '@/components/login';
 import SearchContainer from '@/components/search'
 import Search from '@/components/search/Search';
 import SavedArt from '@/components/search/SavedArt';
@@ -17,8 +17,17 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-     {
-       path: '/',
+    {
+      path: '/',
+      redirect: 'login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    }, 
+    {
+       path: '/home',
        name: 'HomePage',
        component: HomePage
      },
