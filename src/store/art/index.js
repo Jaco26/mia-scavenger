@@ -1,39 +1,69 @@
 import { user } from '@/services';
 
+const genericErrMsg = (customMsg) => `Oops! There was an error while attempting to ${customMsg}`
+
+const errorMsgs = {
+  saveArt: genericErrMsg('save your art'),
+  getArt: genericErrMsg('get your saved art'),
+  deleteArt: genericErrMsg('delete your art'),
+}
+
 export default {
   namespaced: true,
   state: {
-    art: [],
+    savedArt: [],
+    artLoading: false,
+    artSaving: false,
+    errorMsg: '',
+    successMsg: ''
   },
   mutations: {
     setArt(state, payload) {
-      state.art = payload.data;
+      state.savedArt = payload.data ? payload.data : [];
     },
+    setWaiting(state, { key, is }) {
+      state[key] = is;
+    },
+    setErrorMsg(state, msg) {
+      state.errorMsg = msg;
+    },
+    setSuccessMsg(state, msg) {
+      state.successMsg = msg;
+    }
   },
   actions: {
     async getArt({ commit, rootState }) {
       try {
+        commit('setWaiting', { key: 'artLoading', is: true });
         const user_id = rootState.user.user.id;
-        commit('setArt', await user.getUserArt({ user_id })); 
+        commit('setArt', await user.getUserArt({ user_id }));
+        commit('setWaiting', { key: 'artLoading', is: false }); 
       } catch (err) {
+        commit('setErrorMsg', errorMsgs.getArt);
         console.log(err);
       }
     },
-    async saveArt({ dispatch, rootState }, { miapi_id }) {
+    async saveArt({ commit, dispatch, rootState }, { miapi_id }) {
       try {
+        commit('setWaiting', { key: 'artSaving', is: true });
         const user_id = rootState.user.user.id;
         await user.saveUserArt({ user_id, miapi_id });        
         dispatch('getArt');
-      } catch (err) {
+        commit('setSuccessMsg', 'Your art has been saved!');
+        commit('setWaiting', { key: 'artSaving', is: false });
+      } catch (err) {        
+        commit('setErrorMsg', errorMsgs.saveArt);
         console.log(err);
       }
     },
-    async deleteArt({ dispatch, rootState }, { artId }) {
+    async deleteArt({ commit, dispatch, rootState }, { artId }) {
       try {
         const user_id = rootState.user.user.id;
         await user.deleteUserArt({ user_id, artId });
         dispatch('getArt', { user_id });
+        commit('setSuccessMsg', 'Your art has been deleted!');
       } catch (err) {
+        commit('setErrorMsg', errorMsgs.deleteArt);
         console.log(err);
       }
     },

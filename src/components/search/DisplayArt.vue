@@ -1,26 +1,23 @@
 <template>
-  <div>
-    <b-row v-for="item in displayResults" :key="item.id">
-      <b-col>
-        <b-card>
-          <b-media>
-            <b-img slot="aside" :src="item.imgUrl" alt="placeholder" />
-            <b-media-body>
-              <h5> {{item.title}} </h5>
-              <p> {{item.description}} </p>
-              <div v-for="stop in item.audioStops" :key="stop._id" >
-                <audio controls>
-                  <source v-if="stop.link" :src="stop.link">
-                </audio>
-              </div>
-              <b-button @click="saveArt({miapi_id: item.miapi_id})"> Save Art </b-button>
-              <b-button @click="deleteArt({artId: item.id})"> Delete </b-button>
-            </b-media-body>
-          </b-media>
-        </b-card>
-      </b-col>
-    </b-row>
-  </div>
+  <v-container fluid grid-list-md>
+    <v-layout wrap>
+      <v-flex v-for="item in displayResults" :key="item.miapi_id">
+        <v-card>
+          <v-card-title primary-title> {{item.title}} </v-card-title>
+          <v-card-media>
+            <v-img :src="item.imgUrl" height="200"></v-img>
+            <audio v-for="audioStop in item.audioStops" :key="audioStop._id" controls>
+              <source v-if="audioStop.link" :src="audioStop.link">
+            </audio>
+          </v-card-media>
+          <v-card-actions>
+            <v-btn flat outline>Save</v-btn>
+            <v-btn flat outline color="red">Delete</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
