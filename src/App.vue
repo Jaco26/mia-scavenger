@@ -5,8 +5,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'App',
+  methods: {
+    ...mapActions('art', ['getArt'])
+  },
+  created() {
+    this.getArt();
+  }
 }
 
 </script>
@@ -18,6 +25,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

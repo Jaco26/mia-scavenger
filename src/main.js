@@ -3,9 +3,17 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import {store} from './store/store';
+import { store } from './store/store';
 
-Vue.config.productionTip = false;
+// Import 3rd party libraries
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+// Use 3rd party libraries
+Vue.use(BootstrapVue);
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

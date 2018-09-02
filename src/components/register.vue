@@ -35,7 +35,7 @@ export default {
   methods: {
     submitUser() {
       this.$store.commit('setUser', this.user);
-      this.$router.push({name: 'HomePage'}); 
+      this.$router.push({name: 'HomePage'});
     },
   }
 }
