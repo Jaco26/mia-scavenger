@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="center">
+    <!-- <b-row align-h="center">
       <b-col class="m-2" cols="6">
         <b-form @submit.prevent="searchArt(searchPhrase)">
           <b-form-row>
@@ -17,7 +17,6 @@
                 v-model="selectedFields"
                 buttons
                 :options="searchFields"
-
               ></b-form-checkbox-group>
             </b-col>
           </b-form-row>
@@ -25,7 +24,7 @@
       </b-col>
     </b-row>
 
-    {{selectedFields}}
+    {{selectedFields}} -->
 
     <AppDisplayArt 
       :results="searchResults"
