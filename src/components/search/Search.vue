@@ -13,7 +13,7 @@
       </v-layout>
     </v-form>
 
-    <AppDisplayArt 
+    <GlobalDisplayArt 
       :results="searchResults"
     />
 
@@ -22,7 +22,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import AppDisplayArt from './DisplayArt'
 export default {
   data() {
     return {
@@ -50,9 +49,6 @@ export default {
       ],
       selectedFields: [],
     }
-  },
-  components: {
-    AppDisplayArt
   },
   methods: {
     ...mapActions('search', ['searchArt']),

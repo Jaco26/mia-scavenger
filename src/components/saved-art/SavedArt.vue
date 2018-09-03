@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppDisplayArt
+    <GlobalDisplayArt
       :results="savedArt"
     />
   </div>
@@ -8,11 +8,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import AppDisplayArt from './DisplayArt';
 export default {
-  components: {
-    AppDisplayArt,
-  },
   computed: {
     ...mapState('art', ['savedArt']),
   }
