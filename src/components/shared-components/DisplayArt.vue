@@ -5,14 +5,22 @@
         <v-card>
           <v-card-title primary-title> {{item.title}} </v-card-title>
           <v-responsive>
-            <v-img :src="item.imgUrl" height="200"></v-img>
+            <v-img v-if="item.imgAvailable" :src="item.imgUrl" height="200"></v-img>
             <audio v-for="audioStop in item.audioStops" :key="audioStop._id" controls>
               <source v-if="audioStop.link" :src="audioStop.link">
             </audio>
           </v-responsive>
           <v-card-actions>
-            <v-btn flat outline>Save</v-btn>
-            <v-btn flat outline color="red">Delete</v-btn>
+            <v-btn 
+              flat outline 
+              @click="saveArt({miapi_id: item.miapi_id})"
+            >Save</v-btn>
+            <v-btn 
+              v-if="resultsDeletable" 
+              flat outline 
+              color="red"
+              @click="deleteArt({artId: item.id})"
+            >Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -25,6 +33,10 @@ import { mapActions } from 'vuex';
 export default {
   props: {
     results: Array,
+    resultsDeletable: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     displayResults() {
@@ -35,6 +47,7 @@ export default {
           title: item.miaResults.title,
           description: item.miaResults.description,
           room: item.miaResults.room,
+          imgAvailable: item.miaResults.imgAvailable,
           imgUrl: item.miaResults.imgUrl,
           audioStops: item.miaResults.audioStops
         }));

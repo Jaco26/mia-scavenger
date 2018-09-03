@@ -2,6 +2,7 @@
   <div>
     <GlobalDisplayArt
       :results="savedArt"
+      :resultsDeletable="true"
     />
   </div>
 </template>

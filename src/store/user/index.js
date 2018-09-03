@@ -15,7 +15,7 @@ export default {
   },
   mutations: {
     setUser(state, user) {
-      Object.keys(user).forEach(key => state[key] = user[key]);
+      state.user = user[0];
     },
     setLoading(state, is) {
       state.loading = is;

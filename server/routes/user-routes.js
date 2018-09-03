@@ -76,7 +76,11 @@ router.get('/playlist/:artIds', async (req, res) => {
 
 router.get('/:username/:password', async (req, res) => {  
   try {
+    console.log(req.params);
+    
     const result = await Read.user(req.params);
+    console.log(result);
+    
     res.send(result);
   } catch (err) {
     res.sendStatus(500);

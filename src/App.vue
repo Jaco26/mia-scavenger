@@ -22,10 +22,17 @@ export default {
     AppNav,
   },
   methods: {
-    ...mapActions('art', ['getArt'])
+    ...mapActions('art', ['getArt']),
+    ...mapActions('user', ['fetchUser']),
   },
   created() {
+    const userLoginInfo = {
+      username: 'Mx. Doe',
+      password: 1,
+    }
+    this.fetchUser(userLoginInfo);
     this.getArt();
+   
   }
 }
 
