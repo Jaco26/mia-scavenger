@@ -15,7 +15,7 @@ export default {
   },
   mutations: {
     setUser(state, user) {
-      Object.keys(user).forEach(key => state[key] = user[key]);
+      state.user = user[0];
     },
     setLoading(state, is) {
       state.loading = is;
@@ -23,6 +23,9 @@ export default {
     setError(state, {errMsg, is}) {
       state.errorMsg = errMsg;
       state.error = is
+    },
+    logOut(state) {
+      Object.keys(state.user).forEach(key => state.user[key] = '');
     }
   },
   actions: {
@@ -53,7 +56,11 @@ export default {
           console.log(err);
         });
     },
-
   },
+  getters: {
+    isLoggedIn(state) {
+      return state.user.id;
+    }
+  }
   
 }

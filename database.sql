@@ -21,7 +21,7 @@ CREATE TABLE playlists
 	id SERIAL PRIMARY KEY,
 	playlist_name VARCHAR,
 	user_id INT references users ON DELETE CASCADE,
-	cover_art_id INT references art ON DELETE CASCADE,
+	cover_art_id VARCHAR,
 	art_ids TEXT[]
 );
 

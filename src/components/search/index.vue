@@ -2,7 +2,6 @@
   <v-container>
     <v-layout>
       <v-flex>
-        <AppNavBar />
         <router-view></router-view>
       </v-flex>
     </v-layout>
@@ -10,7 +9,6 @@
 </template>
 
 <script>
-import AppNavBar from './Nav'
 import { mapState } from 'vuex'
 export default {
   data() {

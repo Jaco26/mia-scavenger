@@ -1,18 +1,38 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <v-app id="app">
+    <app-nav></app-nav>
+    <v-content>
+      <v-container fluid>
+        <v-layout justify-center>
+          <v-flex>
+            <router-view></router-view>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AppNav from '@/components/Nav';
 export default {
   name: 'App',
+  components: {
+    AppNav,
+  },
   methods: {
-    ...mapActions('art', ['getArt'])
+    ...mapActions('art', ['getArt']),
+    ...mapActions('user', ['fetchUser']),
   },
   created() {
+    const userLoginInfo = {
+      username: 'Mx. Doe',
+      password: 1,
+    }
+    this.fetchUser(userLoginInfo);
     this.getArt();
+   
   }
 }
 
