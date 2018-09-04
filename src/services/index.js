@@ -23,8 +23,9 @@ export const user = {
         throw new Error(err);
       });
   },
-  getUserPlaylists({ userId }) {
-    return api.get(`/user/playlists/${userId}`)
+  getUserPlaylists({ id }) {
+    console.log('get user playlists ran');
+    return api.get(`/user/playlists/${id}`)
       .then(response => response)
       .catch(err => {
         throw new Error(err);

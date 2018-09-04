@@ -1,9 +1,7 @@
 <template>
   <div>
     <button>New Playlist</button>
-    <div v-for="playlist in playlists">
-      <h1>{{playlist.artist}}</h1>
-    </div>
+    <button>Get Playlist</button>
   </div>
 </template>
 
@@ -11,17 +9,19 @@
 import { mapActions, mapState } from 'vuex';
 export default {
   data() {
-    return {
-      playlists: [{
-        artist: 'test',
-        art: 'test',
-      }],
-    }
+    return {}
   },
 
   methods: {
-    
+    ...mapActions('playlists', [
+      'getUserPlaylists'
+    ])
   },
+
+  created() {
+    this.getUserPlaylists();
+  },
+
 }
 </script>
 

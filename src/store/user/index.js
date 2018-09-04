@@ -5,17 +5,10 @@ export default {
   namespaced: true,
   state: {
     user: {
-<<<<<<< HEAD
-      id: 1, // default userId, since we only have one in the database
-      username: 'Mx. Doe',
-      school: 'Art Junior High School',
-      grade: '7',
-=======
       id: null, // default userId, since we only have one in the database
       username: '',
       school: '',
       grade: '',
->>>>>>> development
     },
     error: false,
     errorMsg: '',

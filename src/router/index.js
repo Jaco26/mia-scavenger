@@ -2,19 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { isAuthenticated } from '../store/store'
 
-<<<<<<< HEAD
-import HomePage from '@/components/HomePage'
-import register from '@/components/register'
-import Login from '@/components/login';
-import SearchContainer from '@/components/search'
-=======
 // home page
 import Home from '@/components/Home'
 // auth 
 import Register from '@/components/auth/register'
 import Login from '@/components/auth/login';
 // search
->>>>>>> development
+
 import Search from '@/components/search/Search';
 // saved art
 import SavedArt from '@/components/saved-art/SavedArt';
@@ -64,8 +58,6 @@ export default new Router({
       component: AllPlaylists,
       beforeEnter: isAuthenticated
     },
-<<<<<<< HEAD
-=======
     {
       path: '/playlist/:playlistId',
       name: 'specificPlaylist',
@@ -76,7 +68,6 @@ export default new Router({
       path: '*',
       component: PageNotFound,
     }
->>>>>>> development
   ]
   // routes: [
   //   {

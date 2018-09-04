@@ -1,33 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <b-row align-h="center">
-      <b-col class="m-2" cols="6">
-        <b-form @submit.prevent="searchArt(searchPhrase)">
-          <b-form-row>
-            <b-col cols="10">
-              <b-form-input type="text" placeholder="Search for art" v-model="searchPhrase" />
-            </b-col>
-            <b-col cols="2">
-              <b-button size="md" type="submit">Search</b-button>
-            </b-col>
-          </b-form-row>
-          <b-form-row>
-            <b-col>
-              <b-form-checkbox-group
-                v-model="selectedFields"
-                buttons
-                :options="searchFields"
-              ></b-form-checkbox-group>
-            </b-col>
-          </b-form-row>
-        </b-form>
-      </b-col>
-    </b-row>
-
-    {{selectedFields}}
-=======
-
     <v-snackbar
       v-model="showSnackbar"
       bottom right
@@ -36,7 +8,6 @@
     >
       {{ alertMsg }}
     </v-snackbar>
->>>>>>> development
 
     <v-form @submit.prevent="searchArt(searchPhrase)">
       <v-layout justify-center>
