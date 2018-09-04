@@ -12,9 +12,11 @@ app.use(express.static('dist'));
 
 const userRoutes = require('./routes/user-routes');
 const searchRoutes = require('./routes/search-routes');
+const artRandom =  require('./routes/art-random')
 
 app.use('/api/user', userRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/art', artRandom)
 
 const port = process.env.PORT || 8082;
 

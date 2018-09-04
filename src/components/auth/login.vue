@@ -1,65 +1,94 @@
 <template>
-    <div b-container class="login h-100">
-        <div id="bg">
-            <img src="https://source.unsplash.com/random">
+    <v-container fill-height>
+        <div v-if="background" id="bg">
+            <img :src="background">
         </div>
-        <img id="login-background">
-         <b-row align-v="center" align-h="center" class="h-100 mx-auto ">
-            <b-col cols="6">
-             <b-card class="login-card">
-                <h1 class="mb-5">MIA's Field Trip Planner</h1>
-                <b-form @submit="onSubmit">
-                    <b-form-group class="" id="exampleInputGroup1"
-                                label="Email address:"
-                                label-for="exampleInput1"
-                                description="">
-                        <b-form-input id="exampleInput1"
-                                    type="email"
-                                    v-model="form.email"
-                                    required
-                                    placeholder="Enter email">
-                        </b-form-input>
-                    </b-form-group>
-                     <b-form-group class="" id="password"
-                                label="Password:"
-                                label-for="password"
-                                description="">
-                        <b-form-input id="password"
-                                    type="password"
-                                    v-model="form.password"
-                                    required
-                                    placeholder="Enter password">
-                        </b-form-input>
-                    </b-form-group>
-                    <b-button class="btn-block mt-5" type="submit">Log in</b-button>
-                </b-form>
-            </b-card>
-           </b-col>
-        </b-row>
-       
-    </div>
+        <v-layout  fill-height align-center justify-center row>
+            <v-flex  xs12 md4>
+                <v-card class="login-card" >
+                    <v-card-title  class="justify-center" primary-title>
+                          
+                        <div class="headline">Mia's Field Trip App</div>
+                    </v-card-title>
+                    <v-form  class="mx-4"  v-model="valid">
+                        <v-text-field
+                        v-model="form.username"
+                        :counter="10"
+                        label="User Name"
+                        required>
+                        </v-text-field>
+                        <v-text-field
+                         v-model="form.password"
+                       :append-icon="show1 ? 'visibility_off' : 'visibility'"
+                        :rules="[rules.required]"
+                        :type="show1 ? 'text' : 'password'"
+                        name="input-10-2"
+                        label="Password"
+                        hint="At least 8 characters"
+                        value="password"
+                        class="input-group--focused"
+                        @click:append="show1 = !show1"
+                        ></v-text-field>
+                        <v-btn class="mt-5" large block bottom dark depressed @click="onSubmit">Log In</v-btn>
+                    </v-form>
+                </v-card>
+                <v-card class="mt-1">
+                    <v-layout align-center>
+                        <v-flex class="my-1">
+                            <span>First Time User?</span>
+                            <v-btn small depressed>Sign Up</v-btn>     
+                        </v-flex>
+                    </v-layout>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 
 <script>
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
   components: {},
+    
   methods: {
-    // ...mapActions('search', ['searchArt']),
+     ...mapActions('user', ['fetchUser','isLoggedIn']),
+     ...mapActions('art', ['setBackgroundArt', 'background']),
     onSubmit(evt){
         evt.preventDefault();
         console.log("submit");
-        this.$router.push({ path: 'home' })
+       return this.fetchUser(this.form)
+        .then((res)=>{
+            if(res && res.errMsg)return;
+            this.$router.push({ path: '/' })
+        })
+        .catch(err=>{
+            console.log("here is the error", err);
+            throw new Error(err);
+        })
+      
     }
   },
+   created() {
+    this.setBackgroundArt().then(test => console.log("heeoooo",test));
+
+  },
+  computed: {
+        ...mapGetters('art',['background'])
+    },
   data(){
     return{
         form: {
-            email:'',
+            username:'',
             password: '',
+        },
+        show1: false,
+        rules: {
+          required: value => !!value || 'Required.',
+        //   min: v => v.length >= 8 || 'Min 8 characters',
+          emailMatch: () => ('The email and password you entered don\'t match')
         }
     } 
 

@@ -13,10 +13,18 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters('user', ['isLoggedIn']),
+    ...mapGetters('user', ['fetchUser','isLoggedIn']),
+  },
+  methods:{
+    ...mapActions('art', ['getArt']),
+  }, 
+  Created(){
+    this.fetchUser(userLoginInfo);
+    this.getArt();
   }
 }
 </script>

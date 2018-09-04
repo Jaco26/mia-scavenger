@@ -1,10 +1,11 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 export default {
   namespaced: true,
   state: {
     user: {
-      id: 1, // default userId, since we only have one in the database
+      id: null, // default userId, since we only have one in the database
       username: '',
       school: '',
       grade: '',
@@ -31,11 +32,17 @@ export default {
   actions: {
     fetchUser({commit, dispatch, state}, {username, password}) {
       commit('setLoading', true);
-      axios.get(`/api/user/${username}/${password}`)
+      return axios.get(`/api/user/${username}/${password}`)
         .then(response => {
+          if(_.isEmpty(response.data)) {
+            commit('setError', { errMsg: 'No user Found', is: true });
+            // throw new Error({userNotFound: 'No user Found'});
+            return {errMsg: 'No user Found'}
+          } 
           commit('setUser', response.data);
-          dispatch('playlists/fetchPlaylists', state.user.userId, { root: true });
+          dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
           commit('setLoading', false);
+          return
         })
         .catch(err => {
           commit('setLoading', false);
