@@ -23,9 +23,9 @@
       </v-layout>
     </v-form>
 
-    <GlobalDisplayArt 
+    <global-display-art 
       :results="searchResults"
-    />
+    ></global-display-art>
 
   </div>
 </template>

@@ -25,10 +25,13 @@ export default {
       state[key] = is;
     },
     setErrorMsg(state, msg) {
+      state.errorMsg = '';
       state.errorMsg = msg;
     },
     setSuccessMsg(state, msg) {
-      state.successMsg = msg;
+      // const newSuccessMsg = Object.assign({}, ) msg;
+      
+      state.successMsg = Object.assign({}, {msg}).msg;
     }
   },
   actions: {
