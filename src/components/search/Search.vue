@@ -1,5 +1,15 @@
 <template>
   <div>
+
+    <v-snackbar
+      v-model="showSnackbar"
+      bottom right
+      :timeout="snackbarTimeout"
+      :color="alertColor"
+    >
+      {{ alertMsg }}
+    </v-snackbar>
+
     <v-form @submit.prevent="searchArt(searchPhrase)">
       <v-layout justify-center>
         <v-flex xs12 class="ma-2">
@@ -48,10 +58,22 @@ export default {
         },
       ],
       selectedFields: [],
+
+      // properties that the vuetify snackbar will use
+      showSnackbar: false,
+      snackbarTimeout: 0,
+      alertMsg: '',
+      alertColor: '',
     }
   },
   methods: {
     ...mapActions('search', ['searchArt']),
+    triggerSnackbar(colorVariant, message, timeout) {
+      this.showSnackbar = true;
+      this.snackbarTimeout = timeout;
+      this.alertMsg = message;
+      this.alertColor = colorVariant;
+    }
   },
   computed: {
     searchPhrase: {
@@ -63,6 +85,20 @@ export default {
       },
     },
     ...mapState('search', ['searchResults']),
+    ...mapState('art', ['errorMsg', 'successMsg']),
+  },
+  watch: {
+    errorMsg(msg) {
+      if (msg) {
+        this.triggerSnackbar('danger', msg, 5000);
+      } 
+    },
+    successMsg(msg) {
+      if (msg) {        
+        this.triggerSnackbar('success', msg, 5000);
+      }
+    }
   }
 }
 </script>
+

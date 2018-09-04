@@ -1,9 +1,9 @@
 <template>
   <div>
-    <GlobalDisplayArt
+    <global-display-art
       :results="savedArt"
       :resultsDeletable="true"
-    />
+    ></global-display-art>
   </div>
 </template>
 
