@@ -1,13 +1,21 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 export default {
   namespaced: true,
   state: {
     user: {
+<<<<<<< HEAD
       id: 1, // default userId, since we only have one in the database
       username: 'Mx. Doe',
       school: 'Art Junior High School',
       grade: '7',
+=======
+      id: null, // default userId, since we only have one in the database
+      username: '',
+      school: '',
+      grade: '',
+>>>>>>> development
     },
     error: false,
     errorMsg: '',
@@ -15,7 +23,7 @@ export default {
   },
   mutations: {
     setUser(state, user) {
-      Object.keys(user).forEach(key => state[key] = user[key]);
+      state.user = user[0];
     },
     setLoading(state, is) {
       state.loading = is;
@@ -23,16 +31,25 @@ export default {
     setError(state, {errMsg, is}) {
       state.errorMsg = errMsg;
       state.error = is
+    },
+    logOut(state) {
+      Object.keys(state.user).forEach(key => state.user[key] = '');
     }
   },
   actions: {
     fetchUser({commit, dispatch, state}, {username, password}) {
       commit('setLoading', true);
-      axios.get(`/api/user/${username}/${password}`)
+      return axios.get(`/api/user/${username}/${password}`)
         .then(response => {
+          if(_.isEmpty(response.data)) {
+            commit('setError', { errMsg: 'No user Found', is: true });
+            // throw new Error({userNotFound: 'No user Found'});
+            return {errMsg: 'No user Found'}
+          } 
           commit('setUser', response.data);
-          dispatch('playlists/fetchPlaylists', state.user.userId, { root: true });
+          dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
           commit('setLoading', false);
+          return
         })
         .catch(err => {
           commit('setLoading', false);
@@ -53,7 +70,11 @@ export default {
           console.log(err);
         });
     },
-
   },
+  getters: {
+    isLoggedIn(state) {
+      return state.user.id;
+    }
+  }
   
 }

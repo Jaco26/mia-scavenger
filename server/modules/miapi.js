@@ -4,9 +4,10 @@ const miaSearch = axios.create({
   baseURL: 'https://search.artsmia.org',
 });
 
-const filterArtResponse = (response) => {  
+const filterArtResponse = (response, random) => {  
+  if(random)return response.data;
   return response.data.hits.hits.reduce((accum, item, i) => {
-    const x = item._source;    
+    const x = item._source;        
     accum.push({
       artist: x.artist,
       classification: x.classification,
@@ -22,6 +23,7 @@ const filterArtResponse = (response) => {
       title: x.title,
       audioStops: x['related:audio-stops'],
       tags: x.tags,
+      imgAvailable: x.image === 'valid',
       imgUrl: `https://api.artsmia.org/images/${x.id}/small.jpg`
     });
     return accum;
@@ -45,11 +47,14 @@ module.exports = {
         ? str += id
         : str += `${id},`;
       return str;
-    }, '');
-    console.log('IDS STRING ******', idsString);
-    
+    }, '');    
     return miaSearch.get(`/ids/${idsString}`)
       .then(response => filterArtResponse(response))
       .catch(err => err);
   },
+  getRandomArt(){
+    return miaSearch.get('random/art?q=image:valid*')
+      .then(response => filterArtResponse(response, true))
+      .catch(err => err);
+  }
 }

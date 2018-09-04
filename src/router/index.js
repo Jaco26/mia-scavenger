@@ -1,15 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { isAuthenticated } from '../store/store'
 
+<<<<<<< HEAD
 import HomePage from '@/components/HomePage'
 import register from '@/components/register'
 import Login from '@/components/login';
 import SearchContainer from '@/components/search'
+=======
+// home page
+import Home from '@/components/Home'
+// auth 
+import Register from '@/components/auth/register'
+import Login from '@/components/auth/login';
+// search
+>>>>>>> development
 import Search from '@/components/search/Search';
-import SavedArt from '@/components/search/SavedArt';
-import Playlists from '@/components/search/Playlists';
-import Playlist from '@/components/search/Playlist';
-
+// saved art
+import SavedArt from '@/components/saved-art/SavedArt';
+// all playlists
+import AllPlaylists from '@/components/all-playlists/Playlists';
+// specific playlist
+import Playlist from '@/components/playlist/Playlist';
+// page not found
+import PageNotFound from '@/components/PageNotFound';
 
 Vue.use(Router)
 
@@ -18,51 +32,105 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: 'login'
+      name: 'home',
+      component: Home,
+      beforeEnter: isAuthenticated
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
-    }, 
-    {
-       path: '/home',
-       name: 'HomePage',
-       component: HomePage
-     },
-    {
-      path: '/test',
-      component: SearchContainer,
-      redirect: 'test/search',
-      children: [
-        {
-          path: 'search',
-          name: 'search',
-          component: Search
-        },
-        {
-          path: 'art',
-          name: 'savedArt',
-          component: SavedArt,
-        },
-        {
-          path: 'playlists',
-          name: 'savedPlaylists',
-          component: Playlists,
-          children: [
-            {
-              path: ':playlistId',
-              name: 'playlist',
-              component: Playlist,
-            },
-          ],
-        },
-      ],
+      component: Login,
     },
     {
       path: '/register',
-      name: 'Register',
-      component: register
+      name: 'register',
+      component: Register
     },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '/saved-pieces',
+      name: 'savedArt',
+      component: SavedArt,
+      beforeEnter: isAuthenticated
+    }, 
+    {
+      path: '/playlists',
+      name: 'allPlaylists',
+      component: AllPlaylists,
+      beforeEnter: isAuthenticated
+    },
+<<<<<<< HEAD
+=======
+    {
+      path: '/playlist/:playlistId',
+      name: 'specificPlaylist',
+      component: Playlist,
+      beforeEnter: isAuthenticated
+    },
+    {
+      path: '*',
+      component: PageNotFound,
+    }
+>>>>>>> development
   ]
-})
+  // routes: [
+  //   {
+  //     path: '/',
+  //     redirect: 'login'
+  //   },
+  //   {
+  //     path: '/login',
+  //     name: 'login',
+  //     component: Login
+  //   }, 
+  //   {
+  //      path: '/home',
+  //      name: 'HomePage',
+  //      component: HomePage
+  //    },
+  //   {
+  //     path: '/test',
+  //     component: SearchContainer,
+  //     redirect: 'test/search',
+  //     children: [
+  //       {
+  //         path: 'search',
+  //         name: 'search',
+  //         component: Search
+  //       },
+  //       {
+  //         path: 'art',
+  //         name: 'savedArt',
+  //         component: SavedArt,
+  //       },
+  //       {
+  //         path: 'playlists',
+  //         name: 'savedPlaylists',
+  //         component: Playlists,
+  //         children: [
+  //           {
+  //             path: ':playlistId',
+  //             name: 'playlist',
+  //             component: Playlist,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     path: '/register',
+  //     name: 'Register',
+  //     component: register
+  //   },
+  //   {
+  //     path: '/plan',
+  //     name: 'PlanTrip',
+  //     component: PlanTrip
+  //   },
+  // ]
+});

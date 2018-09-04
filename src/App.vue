@@ -1,18 +1,39 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <v-app id="app">
+    <app-nav v-if="isLoggedIn"></app-nav>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center fill-height>
+          <v-flex>
+            <router-view></router-view>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AppNav from '@/components/Nav';
 export default {
   name: 'App',
+  components: {
+    AppNav,
+  },
   methods: {
-    ...mapActions('art', ['getArt'])
+    ...mapActions('art', ['getArt']),
+    ...mapActions('user', ['fetchUser','isLoggedIn']),
   },
   created() {
-    this.getArt();
+    // const userLoginInfo = {
+    //   username: 'Mx. Doe',
+    //   password: 1,
+    // }
+    console.log("whats this", this.isLoggedIn);
+    // this.fetchUser(userLoginInfo);
+    // this.getArt();
+   
   }
 }
 
