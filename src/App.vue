@@ -1,9 +1,9 @@
 <template>
   <v-app id="app">
-    <app-nav></app-nav>
+    <app-nav v-if="isLoggedIn"></app-nav>
     <v-content>
-      <v-container fluid>
-        <v-layout justify-center>
+      <v-container fluid fill-height>
+        <v-layout justify-center fill-height>
           <v-flex>
             <router-view></router-view>
           </v-flex>
@@ -23,15 +23,16 @@ export default {
   },
   methods: {
     ...mapActions('art', ['getArt']),
-    ...mapActions('user', ['fetchUser']),
+    ...mapActions('user', ['fetchUser','isLoggedIn']),
   },
   created() {
-    const userLoginInfo = {
-      username: 'Mx. Doe',
-      password: 1,
-    }
-    this.fetchUser(userLoginInfo);
-    this.getArt();
+    // const userLoginInfo = {
+    //   username: 'Mx. Doe',
+    //   password: 1,
+    // }
+    console.log("whats this", this.isLoggedIn);
+    // this.fetchUser(userLoginInfo);
+    // this.getArt();
    
   }
 }

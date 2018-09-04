@@ -4,7 +4,8 @@ const miaSearch = axios.create({
   baseURL: 'https://search.artsmia.org',
 });
 
-const filterArtResponse = (response) => {  
+const filterArtResponse = (response, random) => {  
+  if(random)return response.data;
   return response.data.hits.hits.reduce((accum, item, i) => {
     const x = item._source;        
     accum.push({
@@ -51,4 +52,9 @@ module.exports = {
       .then(response => filterArtResponse(response))
       .catch(err => err);
   },
+  getRandomArt(){
+    return miaSearch.get('random/art?q=image:valid*')
+      .then(response => filterArtResponse(response, true))
+      .catch(err => err);
+  }
 }

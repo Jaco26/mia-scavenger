@@ -37,6 +37,13 @@ export const user = {
         throw new Error(err);
       });
   },
+  getBackgroundImage(){
+    return api.get('art/random')
+    .then(response => response)
+      .catch(err => {
+        throw new Error(err);
+      });
+  },
 
   // POST
   saveUserArt({ user_id, miapi_id }) {
