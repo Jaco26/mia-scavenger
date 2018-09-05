@@ -24,7 +24,6 @@ export const user = {
       });
   },
   getUserPlaylists({ id }) {
-    console.log('get user playlists ran');
     return api.get(`/user/playlists/${id}`)
       .then(response => response)
       .catch(err => {
@@ -90,6 +89,7 @@ export const user = {
   },
 
   deleteUserPlaylist({ playlist_id }) {
+    console.log('delete user playlist', playlist_id);
     return api.delete(`/user/playlist/${playlist_id}`)
       .then(response => response)
       .catch(err => {

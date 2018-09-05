@@ -17,7 +17,7 @@ if (process.env.DATABASE_URL) {
     max: 10,
     idleTimeoutMillis: 30000,
   };
-  console.log('Pool config!', config);
+  // console.log('Pool config!', config);
   
 } else {
   config = {

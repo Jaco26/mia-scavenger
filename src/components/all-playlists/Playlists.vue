@@ -11,10 +11,12 @@
 
     <div v-for="playlist in $store.state.playlists.playlists.data">
       <h1>{{playlist.playlist_name}}</h1>
+      <h2>{{playlist.id}}</h2>
       <img v-bind:src="getImageUrl(playlist.cover_art_id)" />
       <v-btn>View Playlist</v-btn>
-      <v-btn @click="deleteUserPlaylist(playlist.id)">Delete Playlist</v-btn>
+      <v-btn @click="deletePlaylist({id: playlist.id})">Delete Playlist</v-btn>
     </div>
+
   </div>
 </template>
 
@@ -38,8 +40,12 @@ export default {
       "deleteUserPlaylist"
     ]),
 
+    deletePlaylist(id) {
+      console.log(id);
+      this.deleteUserPlaylist(id);
+    },
+
     setPlaylistName(e) {
-      console.log('button push')
       this.$store.commit("playlists/setPlaylistName", e);
     },
 
@@ -53,4 +59,5 @@ export default {
   }
 };
 </script>
+
 

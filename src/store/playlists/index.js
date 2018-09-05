@@ -16,6 +16,10 @@ export default {
 
     setPlaylistName(state, name) {
       state.playlist_name = name;
+    },
+
+    clearPlaylistName(state) {
+      state.playlist_name = '';
     }
   }, 
 
@@ -30,16 +34,17 @@ export default {
         user_id: this.state.user.user.id,
         miapi_id: this.state.playlists.miapi_id,
       };
-      user.saveUserPlaylist(object);
-      this.getUserPlaylists();
+      await user.saveUserPlaylist(object);
+      commit('setPlaylistResults', await user.getUserPlaylists(this.state.user.user));
+      commit('clearPlaylistName');
     },
 
-    async deleteUserPlaylist(id) {
-      let object = {
+    async deleteUserPlaylist({commit}, {id}) {
+      let objectToSend = {
         playlist_id: id
       }
-      user.deleteUserPlaylist(object)
-      console.log('delete user ran');
+      await user.deleteUserPlaylist(objectToSend);
+      commit('setPlaylistResults', await user.getUserPlaylists(this.state.user.user));
     },
   },
 };
