@@ -2,12 +2,13 @@
   <div>
 
     <v-snackbar
-      v-model="showSnackbar"
-      bottom right
-      :timeout="snackbarTimeout"
-      :color="alertColor"
+      v-model="success"
+      top
+      dismissable
+      :timeout="5000"
+      color="success"
     >
-      {{ alertMsg }}
+      {{ successMsg }}
     </v-snackbar>
 
     <v-form @submit.prevent="searchArt(searchPhrase)">
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 export default {
   data() {
     return {
@@ -68,6 +69,7 @@ export default {
   },
   methods: {
     ...mapActions('search', ['searchArt']),
+    ...mapMutations('art', ['setError', 'setSuccess']),
     triggerSnackbar(colorVariant, message, timeout) {
       this.showSnackbar = true;
       this.snackbarTimeout = timeout;
@@ -84,21 +86,25 @@ export default {
         this.$store.commit('search/setSearchPhrase', val);
       },
     },
+    success: {
+      get() {
+        return this.$store.state.art.success;
+      },
+      set(val) {
+        this.setSuccess(val)
+      }
+    },
+    error: {
+      get() {
+       return this.$store.state.art.error;
+      },
+      set(val) {
+        this.setError(val)
+      }
+    },
     ...mapState('search', ['searchResults']),
     ...mapState('art', ['errorMsg', 'successMsg']),
   },
-  watch: {
-    errorMsg(msg) {
-      if (msg) {
-        this.triggerSnackbar('danger', msg, 5000);
-      } 
-    },
-    successMsg(msg) {
-      if (msg) {        
-        this.triggerSnackbar('success', msg, 5000);
-      }
-    }
-  }
 }
 </script>
 
