@@ -11,6 +11,17 @@
       {{ successMsg }}
     </v-snackbar>
 
+    <v-snackbar
+      v-model="error"
+      top
+      dismissable
+      :timeout="5000"
+      color="danger"
+    >
+      {{ errorMsg }}
+    </v-snackbar>
+
+
     <v-form @submit.prevent="searchArt(searchPhrase)">
       <v-layout justify-center>
         <v-flex xs12 class="ma-2">
@@ -70,12 +81,6 @@ export default {
   methods: {
     ...mapActions('search', ['searchArt']),
     ...mapMutations('art', ['setError', 'setSuccess']),
-    triggerSnackbar(colorVariant, message, timeout) {
-      this.showSnackbar = true;
-      this.snackbarTimeout = timeout;
-      this.alertMsg = message;
-      this.alertColor = colorVariant;
-    }
   },
   computed: {
     searchPhrase: {
