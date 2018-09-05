@@ -6,23 +6,43 @@
           @input="setPlaylistName"
           label="Playlist Name">
         </v-text-field>
+        <v-flex xs12 sm6 d-flex>
+        <v-select
+          :items="$store.state.art.savedArt"
+          v-model='selectedID'
+          item-text="miaResults.title"
+          item-value="miaResults.id"
+          label="Choose Cover Art"
+          @change="onChange()"
+        ></v-select>
+      </v-flex>
     </v-form>
-    <div>
-      <select v-model='selectedID' v-on:change="onChange()">
-        <option>Test</option>
-        <option v-for="art in $store.state.art.savedArt" v-bind:value="art.miaResults.id">{{art.miaResults.title}}</option>
-      </select>
-    </div>
+
     <v-btn @click="setUserPlaylist()">Add Playlist</v-btn>
 
-    <div v-for="playlist in $store.state.playlists.playlists.data">
-      <h1>{{playlist.playlist_name}}</h1>
-      <h2>{{playlist.id}}</h2>
-      <img v-bind:src="getImageUrl(playlist.cover_art_id)" />
-      <v-btn>View Playlist</v-btn>
-      <v-btn @click="deletePlaylist({id: playlist.id})">Delete Playlist</v-btn>
-    </div>
-
+    <h2>Current Playlists</h2>
+   <v-container fluid grid-list-lg>
+    <v-layout wrap>
+      <v-flex 
+        v-for="item in $store.state.playlists.playlists.data" 
+        :key="item.id"
+        xs4
+        d-flex
+      >
+        <v-card outline>
+          <v-card-title primary-title> {{item.playlist_name}} </v-card-title>
+          <v-responsive>
+            <v-img :src="getImageUrl(item.cover_art_id)" height="200" contain></v-img>
+          </v-responsive>
+          <v-card-actions style="flex-grow: 1;">
+            <v-spacer></v-spacer>
+            <v-btn>View</v-btn>
+            <v-btn @click="deletePlaylist({id: item.id})">Delete</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
   </div>
 </template>
 
@@ -54,7 +74,6 @@ export default {
     },
 
     onChange() {
-      console.log('selected ID', this.selectedID);
       this.$store.commit("playlists/setPlaylistCoverPhoto", this.selectedID);
     },
 
@@ -63,6 +82,7 @@ export default {
     },
 
     getImageUrl(image_id) {
+      console.log(`https://0.api.artsmia.org/800/${image_id}.jpg`);
       return `https://0.api.artsmia.org/800/${image_id}.jpg`;
     }
   },
