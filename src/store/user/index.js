@@ -23,6 +23,7 @@ function persistUserInLocalStorage(state) {
 
 function loadUserFromLocalStorage() {
   const state = initalState();
+  if(!localStorage[storageKey]) return state;
   const user = JSON.parse(localStorage[storageKey]);  
   if (user.id) {
     Object.entries(user).forEach(([key, value]) => {
