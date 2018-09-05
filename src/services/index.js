@@ -89,7 +89,6 @@ export const user = {
   },
 
   deleteUserPlaylist({ playlist_id }) {
-    console.log('delete user playlist', playlist_id);
     return api.delete(`/user/playlist/${playlist_id}`)
       .then(response => response)
       .catch(err => {

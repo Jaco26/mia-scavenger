@@ -6,7 +6,7 @@ export default {
   state: {
     playlists: [],
     playlist_name: '',
-    miapi_id: '61875'
+    miapi_id: ''
   },
 
   mutations: {
@@ -16,6 +16,10 @@ export default {
 
     setPlaylistName(state, name) {
       state.playlist_name = name;
+    },
+
+    setPlaylistCoverPhoto(state, id) {
+      state.miapi_id = id;
     },
 
     clearPlaylistName(state) {
