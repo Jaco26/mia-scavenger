@@ -1,7 +1,6 @@
 <template>
   <div>
-    <button>New Playlist</button>
-    <button>Get Playlist</button>
+    <v-btn @click="setUserPlaylist()">New Playlist</v-btn>
   </div>
 </template>
 
@@ -14,7 +13,8 @@ export default {
 
   methods: {
     ...mapActions('playlists', [
-      'getUserPlaylists'
+      'getUserPlaylists',
+      'setUserPlaylist'
     ])
   },
 
