@@ -54,8 +54,9 @@ export const user = {
         throw new Error(err);
       });
   },
-  saveUserPlaylist({ playlist_name, id, miapi_id }) {
-    return api.post('/user/playlist', { playlist_name, id, miapi_id })
+  saveUserPlaylist({ playlist_name, user_id, miapi_id }) {
+    console.log(playlist_name, user_id, miapi_id);
+    return api.post('/user/playlist', { playlist_name, user_id, miapi_id })
       .then(response => response)
       .catch(err => {
         throw new Error(err);

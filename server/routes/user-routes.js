@@ -31,6 +31,7 @@ router.post('/art', async (req, res) => {
 router.post('/playlist', async (req, res) => {
   try {
     const result = await Create.userPlaylist(req.body);
+    console.log(result);
     result === 200
       ? res.sendStatus(200)
       : res.send(result);
@@ -57,6 +58,7 @@ router.get('/art/:userId', async (req, res) => {
 router.get('/playlists/:userId', async (req, res) => {
   try {
     const result = await Read.userPlaylists(req.params);
+    console.log(result);
     res.send(result);
   } catch (err) {
     res.sendStatus(500);
