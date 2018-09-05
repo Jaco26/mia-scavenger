@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <app-nav v-if="isLoggedIn"></app-nav>
+    <app-nav ></app-nav>
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center fill-height>
@@ -23,16 +23,16 @@ export default {
   },
   methods: {
     ...mapActions('art', ['getArt']),
-    ...mapActions('user', ['fetchUser','isLoggedIn']),
+    ...mapActions('user', ['fetchUser']),
   },
   created() {
     // const userLoginInfo = {
     //   username: 'Mx. Doe',
     //   password: 1,
     // }
-    console.log("whats this", this.isLoggedIn);
+    // console.log("whats this", this.isLoggedIn);
     // this.fetchUser(userLoginInfo);
-    // this.getArt();
+    this.getArt();
    
   }
 }

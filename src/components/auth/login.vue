@@ -1,7 +1,7 @@
 <template>
     <v-container fill-height>
-        <div v-if="background" id="bg">
-            <img :src="background">
+        <div v-if="backgroundImageURL" id="bg">
+            <img :src="backgroundImageURL">
         </div>
         <v-layout  fill-height align-center justify-center row>
             <v-flex  xs12 md4>
@@ -10,7 +10,7 @@
                           
                         <div class="headline">Mia's Field Trip App</div>
                     </v-card-title>
-                    <v-form  class="mx-4"  v-model="valid">
+                    <v-form  class="mx-4" v-model="valid">
                         <v-text-field
                         v-model="form.username"
                         :counter="10"
@@ -50,51 +50,49 @@
 
 import { mapActions, mapState, mapGetters } from 'vuex';
 
-export default {
-  components: {},
-    
-  methods: {
-     ...mapActions('user', ['fetchUser','isLoggedIn']),
-     ...mapActions('art', ['setBackgroundArt', 'background']),
-    onSubmit(evt){
-        evt.preventDefault();
-        console.log("submit");
-       return this.fetchUser(this.form)
-        .then((res)=>{
-            if(res && res.errMsg)return;
-            this.$router.push({ path: '/' })
-        })
-        .catch(err=>{
-            console.log("here is the error", err);
-            throw new Error(err);
-        })
-      
-    }
-  },
-   created() {
-    this.setBackgroundArt().then(test => console.log("heeoooo",test));
-
-  },
-  computed: {
-        ...mapGetters('art',['background'])
-    },
-  data(){
-    return{
-        form: {
-            username:'',
-            password: '',
-        },
-        show1: false,
-        rules: {
-          required: value => !!value || 'Required.',
-        //   min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => ('The email and password you entered don\'t match')
+export default {    
+    methods: {
+        ...mapActions('user', ['fetchUser','isLoggedIn']),
+        ...mapActions('art', ['setBackgroundArt', 'background']),
+        onSubmit(evt){
+            evt.preventDefault();
+            console.log("submit");
+        return this.fetchUser(this.form)
+            .then((res)=>{
+                if(res && res.errMsg)return;
+                this.$router.push({ path: '/' })
+            })
+            .catch(err=>{
+                console.log("here is the error", err);
+                throw new Error(err);
+            })
+        
         }
-    } 
+    },
+    created() {
+        this.setBackgroundArt().then(test => console.log("heeoooo",test));
 
-  }
+    },
+    computed: {
+        ...mapState('art',['backgroundImageURL'])
+    },
+    data(){
+        return {
+            form: {
+                username:'',
+                password: '',
+            },
+            show1: false,
+            rules: {
+                required: value => !!value || 'Required.',
+                //   min: v => v.length >= 8 || 'Min 8 characters',
+                emailMatch: () => ('The email and password you entered don\'t match')
+            },
+            valid: false,
+        } 
+
+    }
  
-
 }
 </script>
 
