@@ -5,7 +5,7 @@ const miaSearch = axios.create({
 });
 
 const filterArtResponse = (response, random) => {  
-  if(random)return response.data;
+  if (random) return response.data.id;
   return response.data.hits.hits.reduce((accum, item, i) => {
     const x = item._source;        
     accum.push({

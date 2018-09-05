@@ -15,7 +15,7 @@ export default {
     savedArt: [],
     artLoading: false,
     artSaving: false,
-    backgroundImageURL: null,
+    backgroundImageURL: '',
     errorMsg: '',
     successMsg: ''
   },
@@ -24,8 +24,8 @@ export default {
       state.savedArt = payload.data ? payload.data : [];
     },
     setBackground(state, payload){
-      console.log("what is payload", payload.data)
-      state.backgroundImageURL = payload ? payload : 'https://0.api.artsmia.org/800/2835.jpg';
+      console.log("what is payload", payload)
+      state.backgroundImageURL = payload ? `https://0.api.artsmia.org/800/${payload}.jpg` : `https://0.api.artsmia.org/800/2835.jpg`;
     },
     setWaiting(state, { key, is }) {
       state[key] = is;
@@ -41,12 +41,12 @@ export default {
     }
     
   },
-  getters: {
-    background(state) {
-      console.log("im the getter", state.backgroundImageURL)
-      return state.backgroundImageURL;
-    }
-  },
+  // getters: {
+  //   background(state) {
+  //     console.log("im the getter", state.backgroundImageURL)
+  //     return state.backgroundImageURL;
+  //   }
+  // },
   actions: {
     async getArt({ commit, rootState }) {
       try {
@@ -84,13 +84,14 @@ export default {
       }
     },
     async setBackgroundArt({ commit, dispatch, rootState }){
-      try{
+      try {
        let response =  await user.getBackgroundImage();
-       console.log("what are you", response.data);
-        commit('setBackground', `https://0.api.artsmia.org/800/${response.data.id}.jpg`);
+       commit('setBackground', response.data);
+      //  console.log("what are you", response.data);
+      //   commit('setBackground', `https://0.api.artsmia.org/800/${response.data.id}.jpg`);
         // commit('setBackground', `https://api.artsmia.org/images/${response.data.id}/small.jpg`);
         
-      }catch(err){
+      } catch (err) {
         commit('setErrorMsg', errorMsgs.randomArt);
         console.log(err);;
       }

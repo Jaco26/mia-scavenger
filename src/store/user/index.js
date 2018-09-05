@@ -40,7 +40,7 @@ export default {
             return {errMsg: 'No user Found'}
           } 
           commit('setUser', response.data);
-          dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
+          // dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
           commit('setLoading', false);
           return
         })
