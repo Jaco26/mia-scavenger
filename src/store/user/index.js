@@ -1,11 +1,12 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-export default {
-  namespaced: true,
-  state: {
+const storageKey = 'miaUser';
+
+function initalState() {
+  return {
     user: {
-      id: null, // default userId, since we only have one in the database
+      id: '',
       username: '',
       school: '',
       grade: '',
@@ -13,10 +14,32 @@ export default {
     error: false,
     errorMsg: '',
     loading: false,
-  },
+  }
+}
+
+function persistUserInLocalStorage(state) {
+  localStorage[storageKey] = JSON.stringify(state.user);
+}
+
+function loadUserFromLocalStorage() {
+  const state = initalState();
+  if(!localStorage[storageKey]) return state;
+  const user = JSON.parse(localStorage[storageKey]);  
+  if (user.id) {
+    Object.entries(user).forEach(([key, value]) => {
+      state.user[key] = value;
+    });
+  }
+  return state;
+}
+
+export default {
+  namespaced: true,
+  state: loadUserFromLocalStorage(),
   mutations: {
     setUser(state, user) {
       state.user = user[0];
+      persistUserInLocalStorage(state);
     },
     setLoading(state, is) {
       state.loading = is;
@@ -27,6 +50,7 @@ export default {
     },
     logOut(state) {
       Object.keys(state.user).forEach(key => state.user[key] = '');
+      persistUserInLocalStorage(state);
     }
   },
   actions: {
@@ -40,7 +64,7 @@ export default {
             return {errMsg: 'No user Found'}
           } 
           commit('setUser', response.data);
-          dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
+          // dispatch('playlists/fetchPlaylists', state.user.id, { root: true });
           commit('setLoading', false);
           return
         })

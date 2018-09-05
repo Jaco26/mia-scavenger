@@ -15,7 +15,9 @@ export default {
     savedArt: [],
     artLoading: false,
     artSaving: false,
-    backgroundImageURL: null,
+    backgroundImageURL: '',
+    error: false,
+    success: false,
     errorMsg: '',
     successMsg: ''
   },
@@ -24,28 +26,25 @@ export default {
       state.savedArt = payload.data ? payload.data : [];
     },
     setBackground(state, payload){
-      console.log("what is payload", payload.data)
-      state.backgroundImageURL = payload ? payload : 'https://0.api.artsmia.org/800/2835.jpg';
+      console.log("what is payload", payload)
+      state.backgroundImageURL = payload ? `https://0.api.artsmia.org/800/${payload}.jpg` : `https://0.api.artsmia.org/800/2835.jpg`;
     },
     setWaiting(state, { key, is }) {
       state[key] = is;
     },
+    setError(state, is) {
+      state.error = is;
+    },
+    setSuccess(state, is) {
+      state.success = is;
+    },
     setErrorMsg(state, msg) {
-      state.errorMsg = '';
       state.errorMsg = msg;
     },
     setSuccessMsg(state, msg) {
-      // const newSuccessMsg = Object.assign({}, ) msg;
-      
-      state.successMsg = Object.assign({}, {msg}).msg;
+      state.successMsg = msg;
     }
     
-  },
-  getters: {
-    background(state) {
-      console.log("im the getter", state.backgroundImageURL)
-      return state.backgroundImageURL;
-    }
   },
   actions: {
     async getArt({ commit, rootState }) {
@@ -55,6 +54,7 @@ export default {
         commit('setArt', await user.getUserArt({ user_id }));
         commit('setWaiting', { key: 'artLoading', is: false }); 
       } catch (err) {
+        commit('setError', true);
         commit('setErrorMsg', errorMsgs.getArt);
         console.log(err);
       }
@@ -65,9 +65,11 @@ export default {
         const user_id = rootState.user.user.id;
         await user.saveUserArt({ user_id, miapi_id });        
         dispatch('getArt');
+        commit('setSuccess', true);
         commit('setSuccessMsg', 'Your art has been saved!');
         commit('setWaiting', { key: 'artSaving', is: false });
-      } catch (err) {        
+      } catch (err) {       
+        commit('setError', true); 
         commit('setErrorMsg', errorMsgs.saveArt);
         console.log(err);
       }
@@ -77,20 +79,20 @@ export default {
         const user_id = rootState.user.user.id;
         await user.deleteUserArt({ user_id, artId });
         dispatch('getArt', { user_id });
+        commit('setSuccess', true);
         commit('setSuccessMsg', 'Your art has been deleted!');
       } catch (err) {
+        commit('setError', true);
         commit('setErrorMsg', errorMsgs.deleteArt);
         console.log(err);
       }
     },
     async setBackgroundArt({ commit, dispatch, rootState }){
-      try{
+      try {
        let response =  await user.getBackgroundImage();
-       console.log("what are you", response.data);
-        commit('setBackground', `https://0.api.artsmia.org/800/${response.data.id}.jpg`);
-        // commit('setBackground', `https://api.artsmia.org/images/${response.data.id}/small.jpg`);
-        
-      }catch(err){
+       commit('setBackground', response.data);      
+      } catch (err) {
+        commit('setError', true);
         commit('setErrorMsg', errorMsgs.randomArt);
         console.log(err);;
       }

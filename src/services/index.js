@@ -39,7 +39,7 @@ export const user = {
   },
   getBackgroundImage(){
     return api.get('art/random')
-    .then(response => response)
+      .then(response => response)
       .catch(err => {
         throw new Error(err);
       });

@@ -10,10 +10,6 @@
       <v-btn flat :to="{name: 'allPlaylists'}">My Playlists</v-btn>
       <v-btn flat @click="logOut">Logout</v-btn>
     </v-toolbar-items>
-    <!-- <v-toolbar-items v-else>
-      <v-btn flat :to="{name: 'login'}">Login</v-btn>
-      <v-btn flat :to="{name: 'register'}">Sign Up</v-btn>
-    </v-toolbar-items> -->
   </v-toolbar>
 </template>
 

@@ -3,7 +3,6 @@ const miapi = require('../modules/miapi');
 
 router.get('/random', async (req, res) => {
   try {
-    
     const miapiResults = await miapi.getRandomArt();
     console.log("Random route is hit", miapiResults);
     res.send(miapiResults);
