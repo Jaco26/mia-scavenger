@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const history = require('connect-history-api-fallback');
 require('dotenv').config();
 
+
 app.use(history());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

@@ -23,8 +23,8 @@ export const user = {
         throw new Error(err);
       });
   },
-  getUserPlaylists({ userId }) {
-    return api.get(`/user/playlists/${userId}`)
+  getUserPlaylists({ id }) {
+    return api.get(`/user/playlists/${id}`)
       .then(response => response)
       .catch(err => {
         throw new Error(err);
@@ -54,6 +54,7 @@ export const user = {
       });
   },
   saveUserPlaylist({ playlist_name, user_id, miapi_id }) {
+    console.log(playlist_name, user_id, miapi_id);
     return api.post('/user/playlist', { playlist_name, user_id, miapi_id })
       .then(response => response)
       .catch(err => {

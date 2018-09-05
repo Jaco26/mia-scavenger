@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <v-snackbar
       v-model="success"
       top
@@ -85,7 +84,7 @@ export default {
   computed: {
     searchPhrase: {
       get() {
-        this.$store.state.search.searchPhrase;
+        return this.$store.state.search.searchPhrase;
       },
       set(val) {
         this.$store.commit('search/setSearchPhrase', val);
