@@ -5,14 +5,18 @@ export default {
 
   state: {
     playlists: [],
-    playlist_name: 'test',
-    miapi_id: '1218'
+    playlist_name: '',
+    miapi_id: '61875'
   },
 
   mutations: {
     setPlaylistResults(state, payload) {
       state.playlists = payload;
     },
+
+    setPlaylistName(state, name) {
+      state.playlist_name = name;
+    }
   }, 
 
   actions: {
@@ -27,7 +31,15 @@ export default {
         miapi_id: this.state.playlists.miapi_id,
       };
       user.saveUserPlaylist(object);
-      // this.getUserPlaylists();
-    }
+      this.getUserPlaylists();
+    },
+
+    async deleteUserPlaylist(id) {
+      let object = {
+        playlist_id: id
+      }
+      user.deleteUserPlaylist(object)
+      console.log('delete user ran');
+    },
   },
 };
