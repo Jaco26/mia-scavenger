@@ -71,8 +71,8 @@ export const user = {
       });
   },
 
-  updateUserPlaylistArt({ playlist_id, art_ids }) {
-    return api.patch('/user/playlist/art', { playlist_id, art_ids })
+  updateUserPlaylistArt({ playlist_id, art_id }) {
+    return api.patch('/user/playlist/art', { playlist_id, art_id })
       .then(response => response)
       .catch(err => {
         throw new Error(err);

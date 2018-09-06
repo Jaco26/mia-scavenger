@@ -29,6 +29,17 @@
               color="red"
               @click="deleteArt({artId: item.id})"
             >Delete</v-btn>
+            <v-flex xs12 sm6 d-flex>
+              <v-select
+                :items="$store.state.playlists.playlists.data"
+                v-model='selectedID'
+                item-text="playlist_name"
+                item-value="id"
+                return-object
+                label="Add To Playlist"
+                @input="addArtToPlaylist({playlist_id: selectedID.id, art_id: item.id})"
+              ></v-select>
+            </v-flex>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -37,8 +48,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      selectedID: "",
+    };
+  },
+
   props: {
     results: Array,
     resultsDeletable: {
@@ -48,13 +65,14 @@ export default {
     resultsSavable: {
       type: Boolean,
       default: false,
+
     }
   },
   computed: {
     displayResults() {
       if (this.results) {
         return this.results.map(item => ({
-          id: item.dbResults ? item.dbResults.id: null,
+          id: item.dbResults ? item.dbResults.id : null,
           miapi_id: item.miaResults.id,
           title: item.miaResults.title,
           description: item.miaResults.description,
@@ -67,11 +85,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('art', [
-      'saveArt',
-      'deleteArt'
-    ]),
+    ...mapActions("art", ["saveArt", "deleteArt"]),
+
+    ...mapActions("playlists", ["addArtToPlaylist"]),
+
   }
-  
-}
+};
 </script>

@@ -6,7 +6,8 @@ export default {
   state: {
     playlists: [],
     playlist_name: '',
-    miapi_id: ''
+    miapi_id: '',
+    selectedPlaylistArt: [],
   },
 
   mutations: {
@@ -24,7 +25,12 @@ export default {
 
     clearPlaylistName(state) {
       state.playlist_name = '';
-    }
+    },
+
+    addPlaylistArt(state, payload) {
+      state.selectedPlaylistArt = payload
+    },
+
   }, 
 
   actions: {
@@ -50,5 +56,10 @@ export default {
       await user.deleteUserPlaylist(objectToSend);
       commit('setPlaylistResults', await user.getUserPlaylists(rootState.user.user));
     },
+
+    async addArtToPlaylist({commit}, {playlist_id, art_id}) {
+      console.log('change', playlist_id, art_id);
+      await user.updateUserPlaylistArt({playlist_id, art_id});
+    }
   },
 };
