@@ -30,19 +30,15 @@
         lg3
       >
         
-           <v-list dense>
-            <v-card>
+        <v-list dense>
+          <v-card>
             <v-img :src="props.item.image" aspect-ratio="1"></v-img> 
-          
-              <!-- <v-list-tile-content>Description:</v-list-tile-content> -->
-            
-            
-            </v-card>
-              <v-list-tile-content class="align-start"> <strong>{{ props.item.name }} </strong> </v-list-tile-content>
-            <v-list-content>
-              <p class="align-start">{{props.item.description}}</p>
-              </v-list-content> 
-            </v-list>
+          </v-card>
+          <v-list-tile-content class="align-start"> <strong>{{ props.item.name }} </strong> </v-list-tile-content>
+          <v-list-tile-content>
+            <p class="align-start">{{props.item.description}}</p>
+          </v-list-tile-content> 
+        </v-list>
         
         </v-flex>
       </v-data-iterator>

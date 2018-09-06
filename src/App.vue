@@ -32,7 +32,7 @@ export default {
     // }
     // console.log("whats this", this.isLoggedIn);
     // this.fetchUser(userLoginInfo);
-    this.getArt();
+    // this.getArt();
    
   }
 }
