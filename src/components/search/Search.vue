@@ -88,7 +88,7 @@ export default {
         },
         {
           text: 'Artist',
-          value: 'artist'
+          value: 'artist',
         },
         {
           text: 'Title',
