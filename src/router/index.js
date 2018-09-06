@@ -8,6 +8,7 @@ import Home from '@/components/Home'
 import Register from '@/components/auth/register'
 import Login from '@/components/auth/login';
 // search
+
 import Search from '@/components/search/Search';
 // saved art
 import SavedArt from '@/components/saved-art/SavedArt';

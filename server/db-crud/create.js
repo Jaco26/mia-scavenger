@@ -46,6 +46,7 @@ module.exports = {
         } else {
           const sqlText = `INSERT INTO playlists (playlist_name, user_id, cover_art_id)
             VALUES ($1, $2, $3);`;
+          console.log('else statement', playlist_name, user_id, miapi_id);
           return pool.query(sqlText, [playlist_name, user_id, miapi_id])
             .then(response => 200)
             .catch(err => err);
