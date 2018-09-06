@@ -36,7 +36,7 @@
           </v-responsive>
           <v-card-actions style="flex-grow: 1;">
             <v-spacer></v-spacer>
-            <v-btn>View</v-btn>
+            <v-btn> <router-link :to="{ name: 'specificPlaylist', params: {playlistId: item.id}}"> View</router-link></v-btn>
             <v-btn @click="deletePlaylist({id: item.id})">Delete</v-btn>
           </v-card-actions>
         </v-card>
@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       selectedID: '',
+      valid: null,
     };
   },
 
