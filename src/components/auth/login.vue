@@ -53,13 +53,14 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 export default {    
     methods: {
         ...mapActions('user', ['fetchUser','isLoggedIn']),
-        ...mapActions('art', ['setBackgroundArt', 'background']),
+        ...mapActions('art', ['setBackgroundArt', 'background', 'getArt']),
         onSubmit(evt){
             evt.preventDefault();
             console.log("submit");
         return this.fetchUser(this.form)
             .then((res)=>{
                 if(res && res.errMsg)return;
+                this.getArt();
                 this.$router.push({ path: '/' })
             })
             .catch(err=>{
