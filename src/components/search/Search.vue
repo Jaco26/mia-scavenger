@@ -2,7 +2,7 @@
   <div>
     <v-snackbar
       v-model="success"
-      top
+      bottom
       dismissable
       :timeout="5000"
       color="success"
@@ -12,7 +12,7 @@
 
     <v-snackbar
       v-model="error"
-      top
+      bottom
       dismissable
       :timeout="5000"
       color="danger"
@@ -20,22 +20,46 @@
       {{ errorMsg }}
     </v-snackbar>
 
-
-    <v-form @submit.prevent="searchArt(searchPhrase)">
-      <v-layout justify-center>
-        <v-flex xs12 class="ma-2">
+    
+      <v-form @submit.prevent="searchArt(fullSearch)">
+        <v-layout justify-center>
+          <v-flex xs8>
             <v-text-field 
               v-model="searchPhrase"
-              solo 
-              prepend-icon="search"
+              :items="searchFields"
+              placeholder="Search Mia for art"
+              solo
+              hide-details
             ></v-text-field>
-            <v-btn type="submit">Search</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-form>
+            <v-flex 
+              
+              class="title my-2 pa-1 font-weight-thin"
+              d-inline-block
+            >
+              {{fullSearch}}
+            </v-flex>
+           <v-layout align-center>
+             <v-btn 
+                v-for="option in searchFields" 
+                :key="option.value" 
+                depressed 
+                :dark="option.value == searchPhraseModifier.value "
+                @click="searchPhraseModifier = option"
+              >
+              {{option.text}}
+            </v-btn>
+            <v-checkbox v-model="specificSearch"  label="Cast a wider net"></v-checkbox>
+           </v-layout>
+          </v-flex>        
+          <v-btn large icon flat type="submit"><v-icon>search</v-icon></v-btn>
+        </v-layout>
+      </v-form>
+
+    
 
     <global-display-art 
       :results="searchResults"
+      resultsSavable
     ></global-display-art>
 
   </div>
@@ -68,7 +92,12 @@ export default {
           value: 'title'
         },
       ],
-      selectedFields: [],
+      specificSearch: false,
+      searchPhraseModifier: {
+        text: 'All',
+        value: '_all',
+      },
+      searchPhrase: '',
 
       // properties that the vuetify snackbar will use
       showSnackbar: false,
@@ -82,13 +111,10 @@ export default {
     ...mapMutations('art', ['setError', 'setSuccess']),
   },
   computed: {
-    searchPhrase: {
-      get() {
-        return this.$store.state.search.searchPhrase;
-      },
-      set(val) {
-        this.$store.commit('search/setSearchPhrase', val);
-      },
+    fullSearch() {
+      return this.specificSearch 
+        ? `${this.searchPhraseModifier.value}.ngram:${this.searchPhrase.trim()}`
+        : `${this.searchPhraseModifier.value}:${this.searchPhrase.trim()}`
     },
     success: {
       get() {
@@ -111,4 +137,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+
+</style>
 

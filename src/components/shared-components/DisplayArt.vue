@@ -18,6 +18,7 @@
           <v-card-actions style="flex-grow: 1;">
             <v-spacer></v-spacer>
             <v-btn 
+              v-if="resultsSavable"
               flat outline 
               @click="saveArt({miapi_id: item.miapi_id})"
             >Save</v-btn>
@@ -43,6 +44,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    resultsSavable: {
+      type: Boolean,
+      default: false,
+    }
   },
   computed: {
     displayResults() {

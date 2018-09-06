@@ -2,7 +2,7 @@
   <div>
     <global-display-art
       :results="savedArt"
-      :resultsDeletable="true"
+      resultsDeletable
     ></global-display-art>
   </div>
 </template>

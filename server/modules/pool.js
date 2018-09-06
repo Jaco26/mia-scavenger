@@ -16,7 +16,7 @@ if (process.env.DATABASE_URL) {
     ssl: true,
     max: 10,
     idleTimeoutMillis: 30000,
-  };  
+  };    
 } else {
   config = {
     host: 'localhost',
