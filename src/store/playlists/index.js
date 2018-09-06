@@ -8,6 +8,9 @@ export default {
     playlist_name: '',
     miapi_id: '',
     selectedPlaylistArt: [],
+    // editing models
+    showModal: false,
+    editPlaylistId: '',
   },
 
   mutations: {
@@ -30,6 +33,19 @@ export default {
     addPlaylistArt(state, payload) {
       state.selectedPlaylistArt = payload
     },
+
+    // editing mutations
+    showEditModal(state, bool) {
+      state.showModal = bool;
+    },
+    setEditPlaylistId(state, id) {
+      state.editPlaylistId = id;
+    },
+    setNewPlaylistArtPayload(state, artId) {
+      if (state.playlistArtPayload.indexOf(artId) == -1) {
+        state.playlistArtPayload.push(artId);
+      } 
+    }
 
   }, 
 
@@ -57,9 +73,12 @@ export default {
       commit('setPlaylistResults', await user.getUserPlaylists(rootState.user.user));
     },
 
-    async addArtToPlaylist({commit}, {playlist_id, art_id}) {
+  
+
+    // editing actions
+    async addArtToPlaylist({ commit }, { playlist_id, art_id }) {
       console.log('change', playlist_id, art_id);
-      await user.updateUserPlaylistArt({playlist_id, art_id});
-    }
+      await user.updateUserPlaylistArt({ playlist_id, art_id });
+    },
   },
 };

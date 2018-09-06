@@ -29,7 +29,7 @@
               color="red"
               @click="deleteArt({artId: item.id})"
             >Delete</v-btn>
-            <v-flex xs12 sm6 d-flex>
+            <!-- <v-flex xs12 sm6 d-flex>
               <v-select
                 :items="$store.state.playlists.playlists.data"
                 v-model='selectedID'
@@ -39,7 +39,7 @@
                 label="Add To Playlist"
                 @input="addArtToPlaylist({playlist_id: selectedID.id, art_id: item.id})"
               ></v-select>
-            </v-flex>
+            </v-flex> -->
           </v-card-actions>
         </v-card>
       </v-flex>
