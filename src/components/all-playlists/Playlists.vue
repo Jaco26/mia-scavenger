@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       selectedID: '',
+      valid: null,
     };
   },
 
