@@ -16,9 +16,7 @@ if (process.env.DATABASE_URL) {
     ssl: true,
     max: 10,
     idleTimeoutMillis: 30000,
-  };
-  console.log('Pool config!', config);
-  
+  };    
 } else {
   config = {
     host: 'localhost',

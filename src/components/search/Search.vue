@@ -2,7 +2,7 @@
   <div>
     <v-snackbar
       v-model="success"
-      top
+      bottom
       dismissable
       :timeout="5000"
       color="success"
@@ -12,7 +12,7 @@
 
     <v-snackbar
       v-model="error"
-      top
+      bottom
       dismissable
       :timeout="5000"
       color="danger"
@@ -20,22 +20,53 @@
       {{ errorMsg }}
     </v-snackbar>
 
-
-    <v-form @submit.prevent="searchArt(searchPhrase)">
+    
+    <v-form @submit.prevent="searchArt(fullSearch)">
       <v-layout justify-center>
-        <v-flex xs12 class="ma-2">
-            <v-text-field 
-              v-model="searchPhrase"
-              solo 
-              prepend-icon="search"
-            ></v-text-field>
-            <v-btn type="submit">Search</v-btn>
-        </v-flex>
+        <v-flex xs8>
+          <v-text-field 
+            v-model="searchPhrase"
+            :items="searchFields"
+            placeholder="Search Mia for art"
+            solo
+            hide-details
+          ></v-text-field>
+          <v-flex 
+            class="title my-2 pa-1 font-weight-thin"
+            d-inline-block
+          >
+            <div>{{fullSearch.slice(0, fullSearch.indexOf(':') + 1)}}<span style="font-weight: 400;">{{searchPhrase}}</span> </div> 
+          </v-flex>
+          <v-layout align-center>
+            <v-flex font-weight-bold>Search Fields: </v-flex> 
+            <v-btn 
+              v-for="option in searchFields" 
+              :key="option.value" 
+              depressed 
+              :dark="option.value == searchPhraseModifier.value "
+              @click="searchPhraseModifier = option"
+              small
+            >
+            {{option.text}}
+          </v-btn>
+          <v-checkbox 
+            v-model="specificSearch"  
+            label="Cast a wider net"
+          ></v-checkbox>
+          </v-layout>
+        </v-flex>        
+        <v-btn large icon flat type="submit"><v-icon>search</v-icon></v-btn>
       </v-layout>
     </v-form>
+  
+    
+    <v-divider></v-divider>
+    
+    <v-progress-linear dark indeterminate v-if="searchLoading"></v-progress-linear>
 
     <global-display-art 
       :results="searchResults"
+      resultsSavable
     ></global-display-art>
 
   </div>
@@ -52,12 +83,8 @@ export default {
           value: '_all',
         },
         {
-          text: 'Description',
-          value: 'description',
-        },
-        {
-          text: 'Text',
-          value: 'text'
+          text: 'Medium',
+          value: 'medium'
         },
         {
           text: 'Artist',
@@ -67,8 +94,17 @@ export default {
           text: 'Title',
           value: 'title'
         },
+        {
+          text: 'Description',
+          value: 'description',
+        },
       ],
-      selectedFields: [],
+      specificSearch: false,
+      searchPhraseModifier: {
+        text: 'All',
+        value: '_all',
+      },
+      // searchPhrase: '',
 
       // properties that the vuetify snackbar will use
       showSnackbar: false,
@@ -82,12 +118,17 @@ export default {
     ...mapMutations('art', ['setError', 'setSuccess']),
   },
   computed: {
+    fullSearch() {
+      return this.specificSearch 
+        ? `${this.searchPhraseModifier.value}.ngram:${this.searchPhrase.trim()}`
+        : `${this.searchPhraseModifier.value}:${this.searchPhrase.trim()}`
+    },
     searchPhrase: {
       get() {
-        return this.$store.state.search.searchPhrase;
+        return this.$store.state.search.searchPhrase
       },
       set(val) {
-        this.$store.commit('search/setSearchPhrase', val);
+        this.$store.commit('search/setSearchPhrase', val)
       },
     },
     success: {
@@ -106,9 +147,14 @@ export default {
         this.setError(val)
       }
     },
-    ...mapState('search', ['searchResults']),
+    ...mapState('search', ['searchResults', 'searchLoading']),
     ...mapState('art', ['errorMsg', 'successMsg']),
   },
 }
 </script>
+
+<style scoped>
+
+
+</style>
 

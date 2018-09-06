@@ -28,27 +28,27 @@ export default {
   }, 
 
   actions: {
-    async getUserPlaylists({commit}) {
-      commit('setPlaylistResults', await user.getUserPlaylists(this.state.user.user));
+    async getUserPlaylists({ commit, rootState }) {
+      commit('setPlaylistResults', await user.getUserPlaylists(rootState.user.user));
     },
 
-    async setUserPlaylist({commit}) {
+    async setUserPlaylist({commit, rootState}) {
       let object = {
-        playlist_name: this.state.playlists.playlist_name,
-        user_id: this.state.user.user.id,
-        miapi_id: this.state.playlists.miapi_id,
+        playlist_name: rootState.playlists.playlist_name,
+        user_id: rootState.user.user.id,
+        miapi_id: rootState.playlists.miapi_id,
       };
       await user.saveUserPlaylist(object);
-      commit('setPlaylistResults', await user.getUserPlaylists(this.state.user.user));
+      commit('setPlaylistResults', await user.getUserPlaylists(rootState.user.user));
       commit('clearPlaylistName');
     },
 
-    async deleteUserPlaylist({commit}, {id}) {
+    async deleteUserPlaylist({ commit, rootState }, {id}) {
       let objectToSend = {
         playlist_id: id
       }
       await user.deleteUserPlaylist(objectToSend);
-      commit('setPlaylistResults', await user.getUserPlaylists(this.state.user.user));
+      commit('setPlaylistResults', await user.getUserPlaylists(rootState.user.user));
     },
   },
 };

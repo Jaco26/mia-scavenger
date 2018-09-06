@@ -5,6 +5,7 @@ export default {
   state: {
     searchPhrase: '',
     searchResults: [],
+    searchLoading: false,
   },
   mutations: {
     setSearchResults(state, payload) {
@@ -12,11 +13,16 @@ export default {
     },
     setSearchPhrase(state, val) {
       state.searchPhrase = val;
+    },
+    setLoading(state, is) {
+      state.searchLoading = is;
     }
   }, 
   actions: {
-    async searchArt({ commit, state }, query) {
-      commit('setSearchResults', await search.searchArt(state.searchPhrase));
+    async searchArt({ commit }, query) {
+      commit('setLoading', true);
+      commit('setSearchResults', await search.searchArt(query));
+      commit('setLoading', false);
     },
   },
 }

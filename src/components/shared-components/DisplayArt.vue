@@ -6,11 +6,12 @@
         :key="item.miapi_id"
         xs4
         d-flex
+        v-if="item.imgAvailable"
       >
         <v-card outline>
           <v-card-title primary-title> {{item.title}} </v-card-title>
           <v-responsive>
-            <v-img v-if="item.imgAvailable" :src="item.imgUrl" height="200" contain></v-img>
+            <v-img :src="item.imgUrl" height="200" contain></v-img>
             <audio v-for="audioStop in item.audioStops" :key="audioStop._id" controls>
               <source v-if="audioStop.link" :src="audioStop.link">
             </audio>
@@ -18,6 +19,7 @@
           <v-card-actions style="flex-grow: 1;">
             <v-spacer></v-spacer>
             <v-btn 
+              v-if="resultsSavable"
               flat outline 
               @click="saveArt({miapi_id: item.miapi_id})"
             >Save</v-btn>
@@ -43,6 +45,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    resultsSavable: {
+      type: Boolean,
+      default: false,
+    }
   },
   computed: {
     displayResults() {
