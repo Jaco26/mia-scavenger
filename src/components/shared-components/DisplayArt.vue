@@ -6,11 +6,12 @@
         :key="item.miapi_id"
         xs4
         d-flex
+        v-if="item.imgAvailable"
       >
         <v-card outline>
           <v-card-title primary-title> {{item.title}} </v-card-title>
           <v-responsive>
-            <v-img v-if="item.imgAvailable" :src="item.imgUrl" height="200" contain></v-img>
+            <v-img :src="item.imgUrl" height="200" contain></v-img>
             <audio v-for="audioStop in item.audioStops" :key="audioStop._id" controls>
               <source v-if="audioStop.link" :src="audioStop.link">
             </audio>
