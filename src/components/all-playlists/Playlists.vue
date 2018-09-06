@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form  class="mx-4"  v-model="valid">
+    <v-form  class="mx-4">
         <v-text-field
           :value="playlist_name"
           @input="setPlaylistName"
@@ -20,7 +20,7 @@
 
     <v-btn @click="setUserPlaylist()">Add Playlist</v-btn>
 
-    <h2>Current Playlists</h2>
+    <h2>Playlists</h2>
    <v-container fluid grid-list-lg>
     <v-layout wrap>
       <v-flex 
@@ -83,7 +83,6 @@ export default {
     },
 
     getImageUrl(image_id) {
-      console.log(`https://0.api.artsmia.org/800/${image_id}.jpg`);
       return `https://0.api.artsmia.org/800/${image_id}.jpg`;
     }
   },

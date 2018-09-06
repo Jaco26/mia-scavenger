@@ -115,6 +115,7 @@ router.patch('/playlist', async (req, res) => {
 
 router.patch('/playlist/art', async (req, res) => {
   try {
+    console.log(req.body);
     await Update.userPlaylistArt(req.body);
     res.sendStatus(200);
   } catch (err) {
